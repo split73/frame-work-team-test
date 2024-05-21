@@ -40,7 +40,7 @@ const Galery = () => {
       </header>
       <ul id="cardWrapper">
         {cardData && cardData.map((el) => (
-          <li><Card {...el}/>qwe</li>
+          <li><Card {...el}/></li>
         ))}
       </ul>
     </div>
@@ -48,3 +48,4 @@ const Galery = () => {
 };
 
 export default Galery;
+
