@@ -1,0 +1,38 @@
+header {
+  height: 80px;
+  background-color: #121212;
+  overflow: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#logo {
+  float: left;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+#lightIcon {
+  float: right;
+  text-align: center;
+  background: none;
+  border: none;
+  text-decoration: none;
+  padding: 12px;
+  border-radius: 4px;
+}
+
+#cardWrapper {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  width: calc(100% - 290px);
+  flex-wrap: wrap;
+  gap: 10px;
+}
