@@ -1,16 +1,37 @@
-.wrapper {
-  background-color: aqua;
-  width: 392px;
-  height: 260px;
-  top: 180px;
-  left: 100px;
+.productCard {
   position: relative;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.cardInfoWrapper {
+  position: absolute;
+  bottom: 0;
 }
 
 .imageInfo {
-  width: 300px;
-  height: 82px;
-  top: 178px;
+  font-family: "Cormorant SC";
+  height: 45px;
+  width: 236px;
   background-color: #121212;
-  position: absolute;
+  color: #dedede;
+}
+
+.arrowButton {
+  background-color: #ab8956;
+  width: 24px;
+  height: 45px;
+  padding: 0;
+  border: 0;
+}
+
+.imageCard {
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 1;
+  display: block;
+}
+
+.imageWrapper {
+  aspect-ratio: 1;
 }

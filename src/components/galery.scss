@@ -1,38 +1,60 @@
-header {
-  height: 80px;
-  background-color: #121212;
-  overflow: hidden;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
 }
 
-#logo {
-  float: left;
-  text-align: center;
-  padding: 12px;
-  text-decoration: none;
-  border-radius: 4px;
+main {
+  grid-column: 1/7;
 }
 
-#lightIcon {
-  float: right;
-  text-align: center;
-  background: none;
-  border: none;
-  text-decoration: none;
-  padding: 12px;
-  border-radius: 4px;
-}
-
-#cardWrapper {
+#cardsWrapper {
   list-style-type: none;
-  display: flex;
-  flex-direction: row;
-  width: calc(100% - 290px);
-  flex-wrap: wrap;
   gap: 10px;
+  padding: 0;
+}
+
+#galleryWrapper {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  max-width: 1440px;
+  background-color: #121212;
+}
+
+#searchBar {
+  grid-column: 1/6;
+  background-color: #1a1818;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+}
+
+#searchBar > input {
+  font-family: "Inter";
+  border: none;
+  background-color: #1a1818;
+  color: #dedede;
+  margin: auto;
+}
+
+#searchIcon {
+  width: 16px;
+  height: 16px;
+  margin: auto;
+}
+
+#smallCloseIcon {
+  width: 12px;
+  height: 12px;
+  margin: auto;
+}
+
+#filterButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  border: none;
+  grid-column: 6;
+  background-color: #1a1818;
+  justify-self: right;
 }
