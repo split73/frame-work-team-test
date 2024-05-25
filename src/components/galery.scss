@@ -2,22 +2,22 @@ body {
   margin: 0;
 }
 
+#galleryWrapper {
+  margin: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  column-gap: 5px;
+  max-width: 1440px;
+  background-color: #121212;
+}
+
 main {
   grid-column: 1/7;
 }
 
 #cardsWrapper {
   list-style-type: none;
-  gap: 10px;
   padding: 0;
-}
-
-#galleryWrapper {
-  padding: 20px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  max-width: 1440px;
-  background-color: #121212;
 }
 
 #searchBar {
@@ -34,13 +34,14 @@ main {
   border: none;
   background-color: #1a1818;
   color: #dedede;
-  margin: auto;
+  margin: auto 0px auto 0px;
+  width: 100%;
 }
 
 #searchIcon {
   width: 16px;
   height: 16px;
-  margin: auto;
+  margin: 8px 8px 8px 16px;
 }
 
 #smallCloseIcon {
@@ -57,4 +58,97 @@ main {
   grid-column: 6;
   background-color: #1a1818;
   justify-self: right;
+}
+
+#paginationWrapper {
+  grid-column: 1/7;
+  display: inline-block;
+  text-align: center;
+}
+
+.paginationButton {
+  display: inline-block;
+  list-style-type: none;
+  background: none;
+  color: #dedede;
+  margin: 2px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+}
+
+#paginationLeftArrow {
+  transform: rotate(180deg);
+}
+
+#activePaginationButton {
+  background-color: #1a1818;
+}
+
+#paginationList {
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  main {
+    grid-column: 1/9;
+  }
+
+  #galleryWrapper {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 24px;
+  }
+  #cardsWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+  }
+  #searchBar {
+    grid-column: 5/8;
+  }
+
+  #filterButton {
+    grid-column: 8;
+  }
+
+  #paginationWrapper {
+    grid-column: 3/7;
+  }
+}
+
+@media (min-width: 1280px) {
+  main {
+    grid-column: 1/13;
+  }
+
+  #galleryWrapper {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 32px;
+    width: 1240px;
+    margin: auto;
+  }
+  #cardsWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 32px;
+  }
+
+  #searchBar {
+    grid-column: 7/12;
+  }
+
+  #filterButton {
+    grid-column: 12;
+  }
+
+  #paginationWrapper {
+    grid-column: 5/9;
+  }
+}
+
+@media (min-width: 1440px) {
+  #cardsWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }

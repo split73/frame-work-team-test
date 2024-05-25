@@ -1,7 +1,7 @@
 header {
   background-color: #121212;
   overflow: hidden;
-  padding: 20px;
+  margin-top: 20px;
 }
 
 #logo {
@@ -18,4 +18,16 @@ header {
   width: 40px;
   height: 40px;
   border-radius: 50%
+}
+
+@media (min-width: 768px) {
+  header {
+    grid-column: 1/9;
+  }
+}
+
+@media (min-width: 1280px) {
+  header {
+    grid-column: 1/13;
+  }
 }
