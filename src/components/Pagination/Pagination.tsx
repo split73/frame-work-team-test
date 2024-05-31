@@ -1,17 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 import paginationArrowIcon from "../../assets/pagination_arrow_icon.svg";
 import GaleryScss from "../Galery/Galery.module.scss";
+import { cardAPI } from "../../services/CardService";
 type Props = {
-  lastPageLink: string | null | undefined;
+  searchInput: string;
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const Pagination = ({ lastPageLink, currentPage, setCurrentPage }: Props) => {
-  const indexLastPageSubstring = lastPageLink.indexOf('rel="last"');
-  const [lastPage, setLastPage] = useState<number>(
-    parsePaginationLinks(lastPageLink, indexLastPageSubstring)
-  );
+const Pagination = ({ searchInput, currentPage, setCurrentPage }: Props) => {
+  
+  const {
+    data: cards,
+    isFetching,
+  } = cardAPI.useFetchPaintingsQuery({page: currentPage, limit: 6, filterParam: searchInput});
+  let indexLastPageSubstring = cards?.paginationLastPageLink.indexOf('rel="last"');
+  let lastPage = parsePaginationLinks(cards.paginationLastPageLink, indexLastPageSubstring)
+  // const card = useAppSelector(state => state.cardsReducer)
+
+  // const [lastPage, setLastPage] = useState<number>(
+  //   parsePaginationLinks(indexLastPageSubstring, indexLastPageSubstring)
+  // );
   const [pagination, setPagination] = useState<JSX.Element[]>([]);
   const isFirstRender = useRef(true);
 
@@ -22,6 +31,7 @@ const Pagination = ({ lastPageLink, currentPage, setCurrentPage }: Props) => {
     linkString: string | null | undefined,
     characterIndex: number | undefined
   ): number {
+    console.log("QQQQQQQ", linkString)
     if (characterIndex === -1 || !linkString) {
       return 0;
     }
@@ -53,8 +63,11 @@ const Pagination = ({ lastPageLink, currentPage, setCurrentPage }: Props) => {
   };
 
   useEffect(() => {
+   
+    
+
     if (isFirstRender.current) {
-      isFirstRender.current = false; // toggle flag after first render/mounting
+      isFirstRender.current = false; 
       return;
     }
 
@@ -171,14 +184,14 @@ const Pagination = ({ lastPageLink, currentPage, setCurrentPage }: Props) => {
         ]);
       }
     }
-  }, [currentPage]);
+  }, [currentPage, cards?.paginationLastPageLink, isFetching]);
   return (
     <div style={{ color: "white" }}>
       <ul id={GaleryScss.paginationList}>
         <li className={GaleryScss.paginationButton} onClick={handleDeacreaseCurrentPage}>
           <img id={GaleryScss.paginationLeftArrow} src={paginationArrowIcon}></img>
         </li>
-        {pagination}
+        {pagination && pagination}
         <li className={GaleryScss.paginationButton} onClick={handleIncreaseCurrentPage}>
           <img src={paginationArrowIcon} />
         </li>

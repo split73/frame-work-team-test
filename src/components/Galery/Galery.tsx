@@ -1,34 +1,33 @@
 import GaleryScss from "./Galery.module.scss";
 import Card from "../Card/Card";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Header from "../Header/Header";
 import filterIcon from "../../assets/filter_icon.svg";
 import searchIcon from "../../assets/search_icon.svg";
 import smallCloseIcon from "../../assets/small_close_icon.svg";
 import FilterOverlay from "../FilterOverlay/FilterOverlay";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { fetchPaintings } from "../../store/reducers/ActionCreators";
 import { cardAPI } from "../../services/CardService";
 import Pagination from "../Pagination/Pagination";
 
 const Galery = () => {
-  const dispatch = useAppDispatch();
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [searchInput, setSearchInput] = useState("");
   const {
     data: cards,
     error,
     isFetching,
-  } = cardAPI.useFetchPaintingsQuery({page: currentPage, limit: 6, filterParam: ""});
+  } = cardAPI.useFetchPaintingsQuery({
+    page: currentPage,
+    limit: 6,
+    filterParam: searchInput,
+  });
 
-  const [searchInput, setSearchInput] = useState("");
   const [showFilterOverlay, setShowFilterOverlay] = useState<boolean>(false);
 
   const hadnleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // const filteredCardData = cardData.filter((el) =>
-    //   el.name.toLowerCase().includes(e.target.value.toLowerCase())
-    // );
-    // setCardData(filteredCardData);
-    // console.log(e.target.value);
+    setSearchInput(e.target.value);
+    setCurrentPage(1)
+    console.log(e.target.value);
   };
 
   const handleToggleFilterOverlay = () => {
@@ -51,10 +50,14 @@ const Galery = () => {
           <input
             placeholder="Placeholder"
             onChange={(e) => hadnleSearchInput(e)}
+            value={searchInput}
           ></input>
           <img id={GaleryScss.smallCloseIcon} src={smallCloseIcon}></img>
         </label>
-        <button id={GaleryScss.filterButton} onClick={handleToggleFilterOverlay}>
+        <button
+          id={GaleryScss.filterButton}
+          onClick={handleToggleFilterOverlay}
+        >
           <img src={filterIcon}></img>
         </button>
 
@@ -71,7 +74,7 @@ const Galery = () => {
         <div id={GaleryScss.paginationWrapper}>
           {cards && (
             <Pagination
-              lastPageLink={cards.paginationLastPageLink}
+              searchInput={searchInput}
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
             />

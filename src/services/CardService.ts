@@ -4,7 +4,7 @@ import { ICardData } from "../models/ICard";
 import { IAuthor } from "../models/IAuthor";
 export const cardAPI = createApi({
   reducerPath: "cardAPI",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://test-front.framework.team!!!!!!!" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://test-front.framework.team" }),
   endpoints: (build) => ({
     fetchPaintings: build.query<
       ICard,
