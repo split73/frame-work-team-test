@@ -27,7 +27,7 @@ export const cardAPI = createApi({
         return { data: data, paginationLastPageLink: links };
       },
     }),
-    fetchAuthors: build.query<IAuthor, void>({
+    fetchAuthors: build.query<IAuthor[], void>({
       query: () => ({
         url: "/authors"
       })

@@ -14,8 +14,8 @@ const Pagination = ({ searchInput, currentPage, setCurrentPage }: Props) => {
     data: cards,
     isFetching,
   } = cardAPI.useFetchPaintingsQuery({page: currentPage, limit: 6, filterParam: searchInput});
-  let indexLastPageSubstring = cards?.paginationLastPageLink.indexOf('rel="last"');
-  let lastPage = parsePaginationLinks(cards.paginationLastPageLink, indexLastPageSubstring)
+  let indexLastPageSubstring = cards?.paginationLastPageLink?.indexOf('rel="last"');
+  let lastPage = parsePaginationLinks(cards?.paginationLastPageLink, indexLastPageSubstring)
   // const card = useAppSelector(state => state.cardsReducer)
 
   // const [lastPage, setLastPage] = useState<number>(

@@ -22,7 +22,7 @@ const Galery = () => {
     filterParam: searchInput,
   });
 
-  const [showFilterOverlay, setShowFilterOverlay] = useState<boolean>(false);
+  const [showFilterOverlay, setShowFilterOverlay] = useState<boolean>(true);
 
   const hadnleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);

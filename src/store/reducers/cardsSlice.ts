@@ -1,6 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ICard } from "../../models/ICard";
-import { fetchPaintings } from "./ActionCreators";
 import { ICardData } from "../../models/ICard";
 interface CardsState {
   cards: ICardData[];
