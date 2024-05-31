@@ -1,4 +1,4 @@
-import Galery from "./components/Galery";
+import Galery from "./components/Galery/Galery";
 
 function App() {
 
