@@ -1,28 +1,60 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import paginationArrowIcon from "../../assets/pagination_arrow_icon.svg";
 import GaleryScss from "../Galery/Galery.module.scss";
-import { cardAPI } from "../../services/CardService";
+import { galleryAPI } from "../../services/GalleryService";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { setPage } from "../../store/reducers/gallerySlice";
 type Props = {
   searchInput: string;
   currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const Pagination = ({ searchInput, currentPage, setCurrentPage }: Props) => {
-  
-  const {
-    data: cards,
-    isFetching,
-  } = cardAPI.useFetchPaintingsQuery({page: currentPage, limit: 6, filterParam: searchInput});
-  let indexLastPageSubstring = cards?.paginationLastPageLink?.indexOf('rel="last"');
-  let lastPage = parsePaginationLinks(cards?.paginationLastPageLink, indexLastPageSubstring)
-  // const card = useAppSelector(state => state.cardsReducer)
+const Pagination = ({ searchInput, currentPage }: Props) => {
+  const dispatch = useAppDispatch();
+  const filterOverlayParams = useAppSelector(
+    (state) => state.filterOverlayReducer
+  );
+  const { data: cards, isFetching } = galleryAPI.useFetchPaintingsQuery({
+    page: currentPage,
+    limit: 6,
+    filterParam: searchInput,
+    authorIdFilter: filterOverlayParams.filterByAuthorQuery,
+    locationIdFilter: filterOverlayParams.filterByLocationQuery,
+  });
 
-  // const [lastPage, setLastPage] = useState<number>(
-  //   parsePaginationLinks(indexLastPageSubstring, indexLastPageSubstring)
-  // );
+  let indexLastPageSubstring =
+    cards?.paginationLastPageLink?.indexOf('rel="last"');
+  let lastPage = parsePaginationLinks(
+    cards?.paginationLastPageLink,
+    indexLastPageSubstring
+  );
+
+  function addPageToPagination(page: number): void {
+    if (page === currentPage) {
+      setPagination((prevState) => [
+        ...prevState,
+        <li
+          className={GaleryScss.paginationButton}
+          id={GaleryScss.activePaginationButton}
+          onClick={() => handleChangePage(page)}
+        >
+          {page}
+        </li>,
+      ]);
+    } else {
+      setPagination((prevState) => [
+        ...prevState,
+        <li
+          className={GaleryScss.paginationButton}
+          onClick={() => handleChangePage(page)}
+        >
+          {page}
+        </li>,
+      ]);
+    }
+  }
+
   const [pagination, setPagination] = useState<JSX.Element[]>([]);
-  const isFirstRender = useRef(true);
 
   function isNumeric(value: string): boolean {
     return /^\d+$/.test(value);
@@ -31,7 +63,6 @@ const Pagination = ({ searchInput, currentPage, setCurrentPage }: Props) => {
     linkString: string | null | undefined,
     characterIndex: number | undefined
   ): number {
-    console.log("QQQQQQQ", linkString)
     if (characterIndex === -1 || !linkString) {
       return 0;
     }
@@ -47,55 +78,22 @@ const Pagination = ({ searchInput, currentPage, setCurrentPage }: Props) => {
   }
 
   const handleChangePage = (page: number) => {
-    setCurrentPage(page);
+    dispatch(setPage(page));
   };
 
   const handleDeacreaseCurrentPage = () => {
     if (currentPage > 1) {
-      setCurrentPage((prevCurrentPage) => prevCurrentPage - 1);
+      dispatch(setPage(currentPage - 1));
     }
   };
 
   const handleIncreaseCurrentPage = () => {
     if (currentPage < lastPage) {
-      setCurrentPage((prevCurrentPage) => prevCurrentPage + 1);
+      dispatch(setPage(currentPage + 1));
     }
   };
 
   useEffect(() => {
-   
-    
-
-    if (isFirstRender.current) {
-      isFirstRender.current = false; 
-      return;
-    }
-
-    function addPageToPagination(page: number): void {
-      if (page === currentPage) {
-        setPagination((prevState) => [
-          ...prevState,
-          <li
-            className={GaleryScss.paginationButton}
-            id={GaleryScss.activePaginationButton}
-            onClick={() => handleChangePage(page)}
-          >
-            {page}
-          </li>,
-        ]);
-      } else {
-        setPagination((prevState) => [
-          ...prevState,
-          <li
-            className={GaleryScss.paginationButton}
-            onClick={() => handleChangePage(page)}
-          >
-            {page}
-          </li>,
-        ]);
-      }
-    }
-
     setPagination([]);
     if (lastPage <= 5) {
       for (let i = 1; i <= lastPage; i++) {
@@ -188,11 +186,20 @@ const Pagination = ({ searchInput, currentPage, setCurrentPage }: Props) => {
   return (
     <div style={{ color: "white" }}>
       <ul id={GaleryScss.paginationList}>
-        <li className={GaleryScss.paginationButton} onClick={handleDeacreaseCurrentPage}>
-          <img id={GaleryScss.paginationLeftArrow} src={paginationArrowIcon}></img>
+        <li
+          className={GaleryScss.paginationButton}
+          onClick={handleDeacreaseCurrentPage}
+        >
+          <img
+            id={GaleryScss.paginationLeftArrow}
+            src={paginationArrowIcon}
+          ></img>
         </li>
         {pagination && pagination}
-        <li className={GaleryScss.paginationButton} onClick={handleIncreaseCurrentPage}>
+        <li
+          className={GaleryScss.paginationButton}
+          onClick={handleIncreaseCurrentPage}
+        >
           <img src={paginationArrowIcon} />
         </li>
       </ul>

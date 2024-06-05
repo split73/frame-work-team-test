@@ -1,7 +1,7 @@
 $primary-black: #121212;
 $primary-white: #ffffff;
 #overlayWrapper {
-  background-color: #121212;
+  background-color: $primary-black;
   color: #ffffff;
   z-index: 10;
   grid-column: 1/7;
@@ -10,23 +10,23 @@ $primary-white: #ffffff;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   margin-left: 20px;
+  min-height: 100vh;
+  height: 100%;
+  border: 1px solid white;
 }
 
 .closeFiltersButton {
   background: none;
   padding: 0;
   border: none;
+  grid-column: 5;
+}
+
+#dropDownFIltersWrapper {
+  grid-column: 1 / 6;
+  margin-left: 20px;
 }
 
 .dropDown {
-  display: flex;
-  justify-content: space-between;
-}
-
-#fropDownFIltersWrapper {
-  grid-column: 1 / 6;
-}
-
-.filtersSelector {
-    overflow: auto;
+  
 }

@@ -1,24 +1,29 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ICard } from "../../models/ICard";
-import { ICardData } from "../../models/ICard";
-interface CardsState {
-  cards: ICardData[];
-  header: string | null | undefined;
+interface GalleryState {
+  page: number;
+  limit: number;
+  filterParam: string;
 }
 
-const initialState: CardsState = {
-  cards: [],
-  header: ""
+const initialState: GalleryState = {
+  page: 1,
+  limit: 6,
+  filterParam: "",
 };
 
-export const cardsSlice = createSlice({
-  name: "cards",
+export const gallerySlice = createSlice({
+  name: "gallery",
   initialState,
   reducers: {
-    changeCards: (state, action: PayloadAction<ICard>) => {
-      state.cards = action.payload.data,
-      state.header = action.payload.paginationLastPageLink
-    }
+    setPage: (state, action: PayloadAction<number>) => {
+      state.page = action.payload;
+    },
+    setLimit: (state, action: PayloadAction<number>) => {
+      state.limit = action.payload;
+    },
+    setFilterParam: (state, action: PayloadAction<string>) => {
+      state.filterParam = action.payload;
+    },
   },
   // extraReducers: (builder) => {
   //   builder.addCase(
@@ -42,4 +47,5 @@ export const cardsSlice = createSlice({
   // },
 });
 
-export default cardsSlice.reducer;
+export default gallerySlice.reducer;
+export const { setPage, setLimit, setFilterParam } = gallerySlice.actions;

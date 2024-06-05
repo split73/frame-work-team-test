@@ -6,33 +6,39 @@ import filterIcon from "../../assets/filter_icon.svg";
 import searchIcon from "../../assets/search_icon.svg";
 import smallCloseIcon from "../../assets/small_close_icon.svg";
 import FilterOverlay from "../FilterOverlay/FilterOverlay";
-import { cardAPI } from "../../services/CardService";
+import { galleryAPI } from "../../services/GalleryService";
 import Pagination from "../Pagination/Pagination";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { setPage } from "../../store/reducers/gallerySlice";
+import { setDisplayOverlay } from "../../store/reducers/filterOverlaySlice";
 
 const Galery = () => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const fetchParams = useAppSelector((state) => state.galleryReducer);
+  const filterOverlayParams = useAppSelector(
+    (state) => state.filterOverlayReducer
+  );
+  const dispatch = useAppDispatch();
   const [searchInput, setSearchInput] = useState("");
   const {
     data: cards,
     error,
     isFetching,
-  } = cardAPI.useFetchPaintingsQuery({
-    page: currentPage,
-    limit: 6,
-    filterParam: searchInput,
+  } = galleryAPI.useFetchPaintingsQuery({
+    page: fetchParams.page,
+    limit: fetchParams.limit,
+    filterParam: fetchParams.filterParam,
+    authorIdFilter: filterOverlayParams.filterByAuthorQuery,
+    locationIdFilter: filterOverlayParams.filterByLocationQuery,
   });
-
-  const [showFilterOverlay, setShowFilterOverlay] = useState<boolean>(true);
 
   const hadnleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
-    setCurrentPage(1)
+    dispatch(setPage(1));
     console.log(e.target.value);
   };
 
   const handleToggleFilterOverlay = () => {
-    setShowFilterOverlay(!showFilterOverlay);
-    console.log(cards);
+    dispatch(setDisplayOverlay());
   };
 
   // useEffect(() => {
@@ -43,7 +49,7 @@ const Galery = () => {
     <div style={{ backgroundColor: "#121212" }}>
       <div id={GaleryScss.galleryWrapper}>
         <Header />
-        {showFilterOverlay ? <FilterOverlay /> : null}
+        {filterOverlayParams.displayOverlay ? <FilterOverlay /> : null}
 
         <label id={GaleryScss.searchBar}>
           <img id={GaleryScss.searchIcon} src={searchIcon}></img>
@@ -75,8 +81,7 @@ const Galery = () => {
           {cards && (
             <Pagination
               searchInput={searchInput}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
+              currentPage={fetchParams.page}
             />
           )}
         </div>

@@ -1,46 +1,37 @@
 import FilterOverlayScss from "./FilterOverlay.module.scss";
 import defaultCloseIcon from "../../assets/default_close_icon.svg";
-import defaultPlusIcon from "../../assets/default_plus_icon.svg";
-import { cardAPI } from "../../services/CardService";
-const FilterOverlay = () => {
-  const {data: authors} = cardAPI.useFetchAuthorsQuery()
+import FilterOption from "./FilterOption/FilterOption";
+import { filterServiceAPI } from "../../services/FilterService";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { setDisplayOverlay } from "../../store/reducers/filterOverlaySlice";
 
-  const handleLog = () => {
-    console.log("Q", authors)
-  }
+const FilterOverlay = () => {
+  const dispatch = useAppDispatch();
+  const { data: authors } = filterServiceAPI.useFetchAuthorsQuery();
+  const { data: locatoins } = filterServiceAPI.useFetchLocationsQuery();
+  const filterOverlayData = useAppSelector(state => state.filterOverlayReducer)
+
+  const hadnleToggleOverlay = () => {
+    dispatch(setDisplayOverlay());
+  };
+
   return (
     <div id={FilterOverlayScss.overlayWrapper}>
-      <button className={FilterOverlayScss.closeFiltersButton} onClick={handleLog}>
+      <button
+        className={FilterOverlayScss.closeFiltersButton}
+        onClick={hadnleToggleOverlay}
+      >
         <img src={defaultCloseIcon}></img>
       </button>
-      <div id={FilterOverlayScss.fropDownFIltersWrapper}>
+      <div id={FilterOverlayScss.dropDownFIltersWrapper}>
         <div className={FilterOverlayScss.dropDown}>
-          <p>ARTIST</p>
-          <button className={FilterOverlayScss.closeFiltersButton}>
-            <img src={defaultPlusIcon}></img>
-          </button>
-        </div>
-        <select className={FilterOverlayScss.filtersSelector}>
-        {
-          authors && authors.map((author) => (
-            <option>{author.name}</option>
-          ))
-          
-
-        }
-        </select>
-        <div className={FilterOverlayScss.dropDown}>
-          <p>LOCATION</p>
-          <button className={FilterOverlayScss.closeFiltersButton}>
-            <img src={defaultPlusIcon}></img>
-          </button>
-          {/* <div style={{ backgroundColor: "white", width: "100%"}}></div> */}
+          <FilterOption name={"ARTIST"} filterOptionAuthor={authors} filterInput={filterOverlayData.filterByAuthor.name}/>
         </div>
         <div className={FilterOverlayScss.dropDown}>
-          <p>YEARS</p>
-          <button className={FilterOverlayScss.closeFiltersButton}>
-            <img src={defaultPlusIcon}></img>
-          </button>
+          <FilterOption name={"LOCATION"} filterOptionLocation={locatoins} filterInput={filterOverlayData.filterByLocation.location}/>
+        </div>
+        <div className={FilterOverlayScss.dropDown}>
+          <FilterOption name={"YEARS"} filterInput={""}/>
         </div>
       </div>
     </div>

@@ -1,0 +1,53 @@
+$primary-black: #121212;
+$primary-white: #ffffff;
+$primary-light-gray: #dedede;
+$primary-dark-gray: #575757;
+$secodary-black: #1a1818;
+.dropDown {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filtersSelector {
+  overflow: auto;
+}
+
+.closeFiltersButton {
+  background: none;
+  padding: 0;
+  border: none;
+  grid-column: 5;
+}
+
+.optionSelector {
+  background-color: $secodary-black;
+  color: white;
+  width: 100%;
+  height: 36px;
+}
+
+.optionSelector::placeholder {
+  color: $primary-dark-gray;
+}
+
+.dropDownOptions {
+  list-style-type: none;
+  padding: 0;
+  max-height: 180px;
+  overflow: auto;
+}
+
+.dropDownOption {
+  background-color: $secodary-black;
+  width: 100%;
+  height: 36px;
+  justify-content: center;
+  // border: 1px solid white
+}
+
+.dropDownOption:hover {
+  background-color: #cdcdcd0d;
+}
+
+.selectOptionsWrapper {
+}
