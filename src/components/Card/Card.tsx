@@ -1,6 +1,6 @@
 import { FC } from "react";
 import CardScss from "./Card.module.scss";
-import arrowIcon from "../../assets/arrow_icon.svg";
+import arrowIcon from "../../assets/svg/arrow_icon.svg";
 import { ICardData } from "../../models/ICard";
 
 interface CardProps {

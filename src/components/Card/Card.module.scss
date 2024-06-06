@@ -1,3 +1,7 @@
+@use "../../assets//styles/variables";
+
+
+
 .productCard {
   position: relative;
   margin-top: 10px;
@@ -14,8 +18,8 @@
   font-family: "Cormorant SC";
   height: 45px;
   width: 236px;
-  background-color: #121212;
-  color: #dedede;
+  background-color: variables.$primary-black;
+  color: variables.$primary-light-gray;
 }
 
 .arrowButton {

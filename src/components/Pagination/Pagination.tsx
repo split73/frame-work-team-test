@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import paginationArrowIcon from "../../assets/pagination_arrow_icon.svg";
+import paginationArrowIcon from "../../assets/svg/pagination_arrow_icon.svg";
 import GaleryScss from "../Galery/Galery.module.scss";
 import { galleryAPI } from "../../services/GalleryService";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";

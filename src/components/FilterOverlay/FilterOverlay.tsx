@@ -1,11 +1,15 @@
 import FilterOverlayScss from "./FilterOverlay.module.scss";
-import defaultCloseIcon from "../../assets/default_close_icon.svg";
+import defaultCloseIcon from "../../assets/svg/default_close_icon.svg";
 import FilterOption from "./FilterOption/FilterOption";
 import { filterServiceAPI } from "../../services/FilterService";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { setDisplayOverlay } from "../../store/reducers/filterOverlaySlice";
+import { memo } from "react";
 
+let count = 0;
 const FilterOverlay = () => {
+  count++;
+  console.log("OVER", count)
   const dispatch = useAppDispatch();
   const { data: authors } = filterServiceAPI.useFetchAuthorsQuery();
   const { data: locatoins } = filterServiceAPI.useFetchLocationsQuery();
@@ -38,4 +42,4 @@ const FilterOverlay = () => {
   );
 };
 
-export default FilterOverlay;
+export default memo(FilterOverlay);

@@ -1,9 +1,9 @@
 import FilterOptionScss from "./FilterOption.module.scss";
-import defaultPlusIcon from "../../../assets/default_plus_icon.svg";
-import defaultMinusIcon from "../../../assets/default_minus_icon.svg";
+import defaultPlusIcon from "../../../assets/svg/default_plus_icon.svg";
+import defaultMinusIcon from "../../../assets/svg/default_minus_icon.svg";
 import { IAuthor } from "../../../models/IAuthor";
 import { ILocation } from "../../../models/ILocation";
-import { FC, useState } from "react";
+import { FC, memo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { setFilterParam } from "../../../store/reducers/gallerySlice";
 import {
@@ -22,7 +22,7 @@ let count = 0;
 
 const FilterOption: FC<FilterOptionProps> = (props) => {
   count++;
-console.log("component render number: ", count);
+  console.log("component render number: ", count, props.name);
   const filterOptions = useAppSelector((state) => state.filterOverlayReducer);
   const [displayDropdown, setDisplayDropdown] = useState(false);
   const dispatch = useAppDispatch();
@@ -30,12 +30,12 @@ console.log("component render number: ", count);
   const [inputValue, setInputValue] = useState(props.filterInput);
 
   const handleAddAuthorToFetchingFilter = (filetrParam: IAuthor) => {
-    setInputValue(filetrParam.name)
+    setInputValue(filetrParam.name);
     dispatch(setFilterByAuthor(filetrParam));
   };
 
   const handleAddLocationToFetchingFilter = (filetrParam: ILocation) => {
-    setInputValue(filetrParam.location)
+    setInputValue(filetrParam.location);
     dispatch(setFilterByLocation(filetrParam));
   };
 
@@ -72,19 +72,23 @@ console.log("component render number: ", count);
             ></input>
             {displayDropdown && (
               <ul className={FilterOptionScss.dropDownOptions}>
-                {props.filterOptionAuthor.filter((author) => author.name.toLowerCase().includes(inputValue)).map((author) => (
-                  <li
-                    className={FilterOptionScss.dropDownOption}
-                    onMouseDown={() =>
-                      handleAddAuthorToFetchingFilter({
-                        id: author.id,
-                        name: author.name,
-                      })
-                    }
-                  >
-                    {author.name}
-                  </li>
-                ))}
+                {props.filterOptionAuthor
+                  .filter((author) =>
+                    author.name.toLowerCase().includes(inputValue)
+                  )
+                  .map((author) => (
+                    <li
+                      className={FilterOptionScss.dropDownOption}
+                      onMouseDown={() =>
+                        handleAddAuthorToFetchingFilter({
+                          id: author.id,
+                          name: author.name,
+                        })
+                      }
+                    >
+                      {author.name}
+                    </li>
+                  ))}
               </ul>
             )}
           </div>
@@ -111,19 +115,23 @@ console.log("component render number: ", count);
             ></input>
             {displayDropdown && (
               <ul className={FilterOptionScss.dropDownOptions}>
-                {props.filterOptionLocation.filter((location) => location.location.toLowerCase().includes(inputValue)).map((location) => (
-                  <li
-                    className={FilterOptionScss.dropDownOption}
-                    onMouseDown ={() =>
-                      handleAddLocationToFetchingFilter({
-                        id: location.id,
-                        location: location.location,
-                      })
-                    }
-                  >
-                    {location.location}
-                  </li>
-                ))}
+                {props.filterOptionLocation
+                  .filter((location) =>
+                    location.location.toLowerCase().includes(inputValue)
+                  )
+                  .map((location) => (
+                    <li
+                      className={FilterOptionScss.dropDownOption}
+                      onMouseDown={() =>
+                        handleAddLocationToFetchingFilter({
+                          id: location.id,
+                          location: location.location,
+                        })
+                      }
+                    >
+                      {location.location}
+                    </li>
+                  ))}
               </ul>
             )}
           </div>
@@ -140,4 +148,4 @@ console.log("component render number: ", count);
   );
 };
 
-export default FilterOption;
+export default memo(FilterOption);
