@@ -26,7 +26,7 @@ const Galery = () => {
   } = galleryAPI.useFetchPaintingsQuery({
     page: fetchParams.page,
     limit: fetchParams.limit,
-    filterParam: fetchParams.filterParam,
+    filterParam: searchInput,
     authorIdFilter: filterOverlayParams.filterByAuthorQuery,
     locationIdFilter: filterOverlayParams.filterByLocationQuery,
   });
