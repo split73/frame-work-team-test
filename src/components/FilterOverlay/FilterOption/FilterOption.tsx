@@ -4,7 +4,7 @@ import defaultMinusIcon from "../../../assets/svg/default_minus_icon.svg";
 import { IAuthor } from "../../../models/IAuthor";
 import { ILocation } from "../../../models/ILocation";
 import { FC, memo, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { useAppDispatch } from "../../../hooks/redux";
 
 import {
   setFilterByAuthor,
@@ -19,7 +19,6 @@ interface FilterOptionProps {
 }
 
 const FilterOption: FC<FilterOptionProps> = (props) => {
-  const filterOptions = useAppSelector((state) => state.filterOverlayReducer);
   const [displayDropdown, setDisplayDropdown] = useState(false);
   const dispatch = useAppDispatch();
   const [displayFilterInput, setDisplayFilterInput] = useState(false);
