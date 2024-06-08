@@ -39,7 +39,6 @@ const Galery = () => {
     setSearchInput(e.target.value);
     dispatch(setFilterParam(e.target.value))
     dispatch(setPage(1));
-    console.log(e.target.value);
   };
 
   const handleToggleFilterOverlay = () => {
