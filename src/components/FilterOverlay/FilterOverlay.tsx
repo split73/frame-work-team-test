@@ -6,21 +6,23 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { setDisplayOverlay } from "../../store/reducers/filterOverlaySlice";
 import { memo } from "react";
 
-let count = 0;
 const FilterOverlay = () => {
-  count++;
-  console.log("OVER", count)
   const dispatch = useAppDispatch();
   const { data: authors } = filterServiceAPI.useFetchAuthorsQuery();
   const { data: locatoins } = filterServiceAPI.useFetchLocationsQuery();
-  const filterOverlayData = useAppSelector(state => state.filterOverlayReducer)
+  const filterOverlayData = useAppSelector(
+    (state) => state.filterOverlayReducer
+  );
 
   const hadnleToggleOverlay = () => {
     dispatch(setDisplayOverlay());
+    
   };
 
+  const classHidden = !filterOverlayData.displayOverlay ? FilterOverlayScss.overlayHidden : ""
+
   return (
-    <div id={FilterOverlayScss.overlayWrapper}>
+    <div id={FilterOverlayScss.overlayWrapper} className={`${classHidden}`}>
       <button
         className={FilterOverlayScss.closeFiltersButton}
         onClick={hadnleToggleOverlay}
@@ -29,13 +31,21 @@ const FilterOverlay = () => {
       </button>
       <div id={FilterOverlayScss.dropDownFIltersWrapper}>
         <div className={FilterOverlayScss.dropDown}>
-          <FilterOption name={"ARTIST"} filterOptionAuthor={authors} filterInput={filterOverlayData.filterByAuthor.name}/>
+          <FilterOption
+            name={"ARTIST"}
+            filterOptionAuthor={authors}
+            filterInput={filterOverlayData.filterByAuthor.name}
+          />
         </div>
         <div className={FilterOverlayScss.dropDown}>
-          <FilterOption name={"LOCATION"} filterOptionLocation={locatoins} filterInput={filterOverlayData.filterByLocation.location}/>
+          <FilterOption
+            name={"LOCATION"}
+            filterOptionLocation={locatoins}
+            filterInput={filterOverlayData.filterByLocation.location}
+          />
         </div>
         <div className={FilterOverlayScss.dropDown}>
-          <FilterOption name={"YEARS"} filterInput={""}/>
+          <FilterOption name={"YEARS"} filterInput={""} />
         </div>
       </div>
     </div>

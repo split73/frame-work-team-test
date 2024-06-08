@@ -13,6 +13,7 @@ $primary-white: #ffffff;
   min-height: 100vh;
   height: 100%;
   border: 1px solid white;
+  transition: transform 300ms ease-in;
 }
 
 .closeFiltersButton {
@@ -28,5 +29,10 @@ $primary-white: #ffffff;
 }
 
 .dropDown {
-  
+}
+
+.overlayHidden {
+  background-color: red;
+  transform: translateX(20rem);
+  transition: transform 300ms ease-out;
 }

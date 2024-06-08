@@ -16,7 +16,7 @@ export const galleryAPI = createApi({
         params: {
           _page: page,
           _limit: limit,
-          q: filterParam,
+          name_like: filterParam,
         },
       }),
       transformResponse: (response: ICardData[], meta): ICard => {

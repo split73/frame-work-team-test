@@ -5,7 +5,7 @@ import { IAuthor } from "../../../models/IAuthor";
 import { ILocation } from "../../../models/ILocation";
 import { FC, memo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { setFilterParam } from "../../../store/reducers/gallerySlice";
+
 import {
   setFilterByAuthor,
   setFilterByLocation,
@@ -18,11 +18,7 @@ interface FilterOptionProps {
   filterInput: string;
 }
 
-let count = 0;
-
 const FilterOption: FC<FilterOptionProps> = (props) => {
-  count++;
-  console.log("component render number: ", count, props.name);
   const filterOptions = useAppSelector((state) => state.filterOverlayReducer);
   const [displayDropdown, setDisplayDropdown] = useState(false);
   const dispatch = useAppDispatch();

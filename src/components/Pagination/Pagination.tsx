@@ -1,68 +1,34 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import paginationArrowIcon from "../../assets/svg/pagination_arrow_icon.svg";
 import GaleryScss from "../Galery/Galery.module.scss";
-import { galleryAPI } from "../../services/GalleryService";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { useAppDispatch } from "../../hooks/redux";
 import { setPage } from "../../store/reducers/gallerySlice";
-type Props = {
-  searchInput: string;
+
+interface Props {
   currentPage: number;
-};
+  paginationLinks: string | null | undefined;
+  isFetching: boolean;
+}
 
-const Pagination = ({ searchInput, currentPage }: Props) => {
+let count = 0;
+
+const Pagination = ({ currentPage, paginationLinks, isFetching }: Props) => {
+  count++;
+  console.log("PAGI", count);
+  const [pagination, setPagination] = useState<JSX.Element[]>([]);
   const dispatch = useAppDispatch();
-  const filterOverlayParams = useAppSelector(
-    (state) => state.filterOverlayReducer
-  );
-  const { data: cards, isFetching } = galleryAPI.useFetchPaintingsQuery({
-    page: currentPage,
-    limit: 6,
-    filterParam: searchInput,
-    authorIdFilter: filterOverlayParams.filterByAuthorQuery,
-    locationIdFilter: filterOverlayParams.filterByLocationQuery,
-  });
 
-  let indexLastPageSubstring =
-    cards?.paginationLastPageLink?.indexOf('rel="last"');
-  let lastPage = parsePaginationLinks(
-    cards?.paginationLastPageLink,
+  let indexLastPageSubstring = paginationLinks?.indexOf('rel="last"');
+  const lastPage = parsePaginationLinks(
+    paginationLinks,
     indexLastPageSubstring
   );
 
-  function addPageToPagination(page: number): void {
-    if (page === currentPage) {
-      setPagination((prevState) => [
-        ...prevState,
-        <li
-          className={GaleryScss.paginationButton}
-          id={GaleryScss.activePaginationButton}
-          onClick={() => handleChangePage(page)}
-        >
-          {page}
-        </li>,
-      ]);
-    } else {
-      setPagination((prevState) => [
-        ...prevState,
-        <li
-          className={GaleryScss.paginationButton}
-          onClick={() => handleChangePage(page)}
-        >
-          {page}
-        </li>,
-      ]);
-    }
-  }
-
-  const [pagination, setPagination] = useState<JSX.Element[]>([]);
-
-  function isNumeric(value: string): boolean {
-    return /^\d+$/.test(value);
-  }
   function parsePaginationLinks(
     linkString: string | null | undefined,
     characterIndex: number | undefined
   ): number {
+    console.log("FUNC", count, linkString, characterIndex);
     if (characterIndex === -1 || !linkString) {
       return 0;
     }
@@ -75,6 +41,32 @@ const Pagination = ({ searchInput, currentPage }: Props) => {
     }
 
     return Number(result);
+  }
+
+  function isNumeric(value: string): boolean {
+    return /^\d+$/.test(value);
+  }
+
+  function addPageToPagination(page: number): JSX.Element {
+    if (page === currentPage) {
+      return (
+        <li
+          className={GaleryScss.paginationButton}
+          id={GaleryScss.activePaginationButton}
+          onClick={() => handleChangePage(page)}
+        >
+          {page}
+        </li>
+      );
+    }
+    return (
+      <li
+        className={GaleryScss.paginationButton}
+        onClick={() => handleChangePage(page)}
+      >
+        {page}
+      </li>
+    );
   }
 
   const handleChangePage = (page: number) => {
@@ -92,97 +84,100 @@ const Pagination = ({ searchInput, currentPage }: Props) => {
       dispatch(setPage(currentPage + 1));
     }
   };
-
-  useEffect(() => {
-    setPagination([]);
+  function managePagination(): void {
+    let tmpPagination: JSX.Element[] = [];
     if (lastPage <= 5) {
       for (let i = 1; i <= lastPage; i++) {
-        addPageToPagination(i);
+        tmpPagination.push(addPageToPagination(i));
       }
     } else {
       if (currentPage < 4) {
         for (let i = 1; i <= 4; i++) {
-          addPageToPagination(i);
+          tmpPagination.push(addPageToPagination(i));
         }
-        setPagination((prevState) => [
-          ...prevState,
+        tmpPagination.push(
           <li
             className={`${GaleryScss.paginationButton} ${GaleryScss.excessPage}`}
           >
             ...
-          </li>,
-        ]);
-        setPagination((prevState) => [
-          ...prevState,
+          </li>
+        );
+        tmpPagination.push(
           <li
             className={GaleryScss.paginationButton}
             onClick={() => handleChangePage(lastPage)}
           >
             {lastPage}
-          </li>,
-        ]);
+          </li>
+        );
       } else if (currentPage >= lastPage - 2) {
-        setPagination((prevState) => [
-          ...prevState,
+        tmpPagination.push(
           <li
             className={GaleryScss.paginationButton}
             onClick={() => handleChangePage(1)}
           >
-            {1}
-          </li>,
-        ]);
-        setPagination((prevState) => [
-          ...prevState,
+            1
+          </li>
+        );
+
+        tmpPagination.push(
           <li
             className={`${GaleryScss.paginationButton} ${GaleryScss.excessPage}`}
           >
             ...
-          </li>,
-        ]);
+          </li>
+        );
+
         for (let i = lastPage - 3; i <= lastPage; i++) {
-          addPageToPagination(i);
+          tmpPagination.push(addPageToPagination(i));
         }
       } else {
-        setPagination((prevState) => [
-          ...prevState,
+        tmpPagination.push(
           <li
             className={GaleryScss.paginationButton}
             onClick={() => handleChangePage(1)}
           >
-            {1}
-          </li>,
-        ]);
-        setPagination((prevState) => [
-          ...prevState,
+            1
+          </li>
+        );
+
+        tmpPagination.push(
           <li
             className={`${GaleryScss.paginationButton} ${GaleryScss.excessPage}`}
           >
             ...
-          </li>,
-        ]);
+          </li>
+        );
+
         for (let i = currentPage - 1; i <= currentPage + 1; i++) {
-          addPageToPagination(i);
+          tmpPagination.push(addPageToPagination(i));
         }
-        setPagination((prevState) => [
-          ...prevState,
+        tmpPagination.push(
           <li
             className={`${GaleryScss.paginationButton} ${GaleryScss.excessPage}`}
           >
             ...
-          </li>,
-        ]);
-        setPagination((prevState) => [
-          ...prevState,
+          </li>
+        );
+
+        tmpPagination.push(
           <li
             className={GaleryScss.paginationButton}
             onClick={() => handleChangePage(lastPage)}
           >
             {lastPage}
-          </li>,
-        ]);
+          </li>
+        );
       }
     }
-  }, [currentPage, cards?.paginationLastPageLink, isFetching]);
+    setPagination(tmpPagination);
+  }
+
+  useEffect(() => {
+    console.log("useState", count);
+    setPagination([]);
+    managePagination();
+  }, [currentPage, paginationLinks, isFetching]);
   return (
     <div style={{ color: "white" }}>
       <ul id={GaleryScss.paginationList}>
@@ -207,4 +202,4 @@ const Pagination = ({ searchInput, currentPage }: Props) => {
   );
 };
 
-export default Pagination;
+export default memo(Pagination);

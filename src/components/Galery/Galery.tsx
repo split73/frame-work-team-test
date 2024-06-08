@@ -1,5 +1,5 @@
 import GaleryScss from "./Galery.module.scss";
-import Card from "../Card/Card";
+import Card from "./Card/Card";
 import { useState } from "react";
 import Header from "../Header/Header";
 import filterIcon from "../../assets/svg/filter_icon.svg";
@@ -9,10 +9,14 @@ import FilterOverlay from "../FilterOverlay/FilterOverlay";
 import { galleryAPI } from "../../services/GalleryService";
 import Pagination from "../Pagination/Pagination";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { setPage } from "../../store/reducers/gallerySlice";
+import { setFilterParam, setPage } from "../../store/reducers/gallerySlice";
 import { setDisplayOverlay } from "../../store/reducers/filterOverlaySlice";
 
+let count = 0;
+
 const Galery = () => {
+  count++;
+  console.log("RENDER", count)
   const fetchParams = useAppSelector((state) => state.galleryReducer);
   const filterOverlayParams = useAppSelector(
     (state) => state.filterOverlayReducer
@@ -33,6 +37,7 @@ const Galery = () => {
 
   const hadnleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
+    dispatch(setFilterParam(e.target.value))
     dispatch(setPage(1));
     console.log(e.target.value);
   };
@@ -49,7 +54,7 @@ const Galery = () => {
     <div style={{ backgroundColor: "#121212" }}>
       <div id={GaleryScss.galleryWrapper}>
         <Header />
-        {filterOverlayParams.displayOverlay ? <FilterOverlay /> : null}
+        {<FilterOverlay/>}
 
         <label id={GaleryScss.searchBar}>
           <img id={GaleryScss.searchIcon} src={searchIcon}></img>
@@ -78,10 +83,11 @@ const Galery = () => {
           </ul>
         </main>
         <div id={GaleryScss.paginationWrapper}>
-          {cards && (
+          {!isFetching && (
             <Pagination
-              searchInput={searchInput}
               currentPage={fetchParams.page}
+              paginationLinks={cards?.paginationLastPageLink}
+              isFetching={isFetching}
             />
           )}
         </div>
