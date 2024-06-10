@@ -26,6 +26,6 @@ $primary-white: #ffffff;
 
 .overlayHidden {
   background-color: red;
-  transform: translateX(20rem);
+  transform: translateX(100%);
   transition: transform 300ms ease-out;
 }

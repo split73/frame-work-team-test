@@ -9,14 +9,26 @@ export const galleryAPI = createApi({
   endpoints: (build) => ({
     fetchPaintings: build.query<
       ICard,
-      { page: number; limit: number; filterParam: string, authorIdFilter: string, locationIdFilter: string }
+      {
+        page: number;
+        limit: number;
+        filterByName: string;
+        filterByAuthorId: string;
+        filterByLocationId: string;
+      }
     >({
-      query: ({ page = 1, limit = 6, filterParam = "", authorIdFilter = "", locationIdFilter = "" }) => ({
-        url: `/paintings?${authorIdFilter}${locationIdFilter}`,
+      query: ({
+        page = 1,
+        limit = 6,
+        filterByName = "",
+        filterByAuthorId = "",
+        filterByLocationId = "",
+      }) => ({
+        url: `/paintings?${filterByAuthorId}${filterByLocationId}`,
         params: {
           _page: page,
           _limit: limit,
-          name_like: filterParam,
+          name_like: filterByName,
         },
       }),
       transformResponse: (response: ICardData[], meta): ICard => {

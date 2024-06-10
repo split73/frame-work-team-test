@@ -5,6 +5,7 @@ import { filterServiceAPI } from "../../services/FilterService";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { setDisplayOverlay } from "../../store/reducers/filterOverlaySlice";
 import { memo } from "react";
+import { setFilterByAuthorId, setFilterByLoactionId } from "../../store/reducers/gallerySlice";
 
 const FilterOverlay = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +20,14 @@ const FilterOverlay = () => {
     
   };
 
-  const classHidden = !filterOverlayData.displayOverlay ? FilterOverlayScss.overlayHidden : ""
+  const handleApplyFilter = () => {
+    dispatch(setFilterByAuthorId(filterOverlayData.filterByAuthorQuery))
+    dispatch(setFilterByLoactionId(filterOverlayData.filterByLocationQuery))
+  };
+
+  const classHidden = !filterOverlayData.displayOverlay
+    ? FilterOverlayScss.overlayHidden
+    : "";
 
   return (
     <div id={FilterOverlayScss.overlayWrapper} className={`${classHidden}`}>
@@ -47,6 +55,7 @@ const FilterOverlay = () => {
         <div className={FilterOverlayScss.dropDown}>
           <FilterOption name={"YEARS"} filterInput={""} />
         </div>
+        <button onClick={handleApplyFilter}>APPLY FILTER</button>
       </div>
     </div>
   );

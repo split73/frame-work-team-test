@@ -2,13 +2,21 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 interface GalleryState {
   page: number;
   limit: number;
-  filterParam: string;
+  filterByName: string;
+  filterByAuthorId: string;
+  filterByLocationId: string;
+  filterByYearGreaterThan: string;
+  filterByYearLessThan: string;
 }
 
 const initialState: GalleryState = {
   page: 1,
   limit: 6,
-  filterParam: "",
+  filterByName: "",
+  filterByAuthorId: "",
+  filterByLocationId: "",
+  filterByYearGreaterThan: "",
+  filterByYearLessThan: "",
 };
 
 export const gallerySlice = createSlice({
@@ -21,31 +29,23 @@ export const gallerySlice = createSlice({
     setLimit: (state, action: PayloadAction<number>) => {
       state.limit = action.payload;
     },
-    setFilterParam: (state, action: PayloadAction<string>) => {
-      state.filterParam = action.payload;
+    setFilterByName: (state, action: PayloadAction<string>) => {
+      state.filterByName = action.payload;
+    },
+    setFilterByAuthorId: (state, action: PayloadAction<string>) => {
+      state.filterByAuthorId = action.payload;
+    },
+    setFilterByLoactionId: (state, action: PayloadAction<string>) => {
+      state.filterByLocationId = action.payload;
     },
   },
-  // extraReducers: (builder) => {
-  //   builder.addCase(
-  //     fetchPaintings.fulfilled.type,
-  //     (state, action: PayloadAction<ICardData[]>) => {
-  //       state.cards = action.payload;
-  //       state.isLoading = false;
-  //       state.error = "";
-  //     }
-  //   );
-  //   builder.addCase(fetchPaintings.pending.type, (state) => {
-  //     state.isLoading = true;
-  //   });
-  //   builder.addCase(
-  //     fetchPaintings.rejected.type,
-  //     (state, action: PayloadAction<string>) => {
-  //       state.isLoading = false;
-  //       state.error = action.payload;
-  //     }
-  //   );
-  // },
 });
 
 export default gallerySlice.reducer;
-export const { setPage, setLimit, setFilterParam } = gallerySlice.actions;
+export const {
+  setPage,
+  setLimit,
+  setFilterByName,
+  setFilterByAuthorId,
+  setFilterByLoactionId,
+} = gallerySlice.actions;

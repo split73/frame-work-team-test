@@ -26,7 +26,7 @@ const FilterOption: FC<FilterOptionProps> = (props) => {
 
   const handleAddAuthorToFetchingFilter = (filetrParam: IAuthor) => {
     setInputValue(filetrParam.name);
-    dispatch(setFilterByAuthor(filetrParam));
+    dispatch(setFilterByAuthor(filetrParam));  
   };
 
   const handleAddLocationToFetchingFilter = (filetrParam: ILocation) => {
