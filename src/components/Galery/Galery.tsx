@@ -9,7 +9,10 @@ import FilterOverlay from "../FilterOverlay/FilterOverlay";
 import { galleryAPI } from "../../services/GalleryService";
 import Pagination from "../Pagination/Pagination";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { setFilterByName, setPage } from "../../store/reducers/gallerySlice";
+import {
+  setFilterByNameParam,
+  setPage,
+} from "../../store/reducers/gallerySlice";
 import { setDisplayOverlay } from "../../store/reducers/filterOverlaySlice";
 
 let count = 0;
@@ -30,11 +33,13 @@ const Galery = () => {
     filterByName: searchInput,
     filterByAuthorId: fetchParams.filterByAuthorId,
     filterByLocationId: fetchParams.filterByLocationId,
+    filterByYearLessThen: fetchParams.filterByYear.greaterThen,
+    filterByYearGreaterThen: fetchParams.filterByYear.lessThen,
   });
 
   const hadnleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
-    dispatch(setFilterByName(e.target.value));
+    dispatch(setFilterByNameParam(e.target.value));
     dispatch(setPage(1));
   };
 

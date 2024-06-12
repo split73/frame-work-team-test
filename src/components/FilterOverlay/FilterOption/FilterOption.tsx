@@ -88,13 +88,6 @@ const FilterOption: FC<FilterOptionProps> = (props) => {
             )}
           </div>
         )}
-      {/* {props.name === "LOCATION" && props.filterOptionLocation && (
-        <select className={FilterOptionScss.filtersSelector}>
-          {props.filterOptionLocation.map((filterOpt) => (
-            <option value={filterOpt.id}>{filterOpt.location}</option>
-          ))}
-        </select>
-      )} */}
 
       {displayFilterInput &&
         props.name === "LOCATION" &&

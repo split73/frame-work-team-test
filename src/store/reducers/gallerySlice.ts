@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { IYears } from "../../models/IYears";
 interface GalleryState {
   page: number;
   limit: number;
   filterByName: string;
   filterByAuthorId: string;
   filterByLocationId: string;
-  filterByYearGreaterThan: string;
-  filterByYearLessThan: string;
+  filterByYear: { greaterThen: string; lessThen: string };
 }
 
 const initialState: GalleryState = {
@@ -15,8 +15,7 @@ const initialState: GalleryState = {
   filterByName: "",
   filterByAuthorId: "",
   filterByLocationId: "",
-  filterByYearGreaterThan: "",
-  filterByYearLessThan: "",
+  filterByYear: { greaterThen: "", lessThen: "" },
 };
 
 export const gallerySlice = createSlice({
@@ -29,14 +28,17 @@ export const gallerySlice = createSlice({
     setLimit: (state, action: PayloadAction<number>) => {
       state.limit = action.payload;
     },
-    setFilterByName: (state, action: PayloadAction<string>) => {
+    setFilterByNameParam: (state, action: PayloadAction<string>) => {
       state.filterByName = action.payload;
     },
-    setFilterByAuthorId: (state, action: PayloadAction<string>) => {
+    setFilterByAuthorIdParam: (state, action: PayloadAction<string>) => {
       state.filterByAuthorId = action.payload;
     },
-    setFilterByLoactionId: (state, action: PayloadAction<string>) => {
+    setFilterByLoactionIdParam: (state, action: PayloadAction<string>) => {
       state.filterByLocationId = action.payload;
+    },
+    setFilterByYearParam: (state, action: PayloadAction<IYears>) => {
+      state.filterByYear = action.payload;
     },
   },
 });
@@ -45,7 +47,8 @@ export default gallerySlice.reducer;
 export const {
   setPage,
   setLimit,
-  setFilterByName,
-  setFilterByAuthorId,
-  setFilterByLoactionId,
+  setFilterByNameParam,
+  setFilterByAuthorIdParam,
+  setFilterByLoactionIdParam,
+  setFilterByYearParam,
 } = gallerySlice.actions;

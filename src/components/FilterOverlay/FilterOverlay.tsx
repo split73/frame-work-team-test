@@ -4,9 +4,14 @@ import FilterOption from "./FilterOption/FilterOption";
 import { filterServiceAPI } from "../../services/FilterService";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { setDisplayOverlay } from "../../store/reducers/filterOverlaySlice";
-import { memo } from "react";
-import { setFilterByAuthorId, setFilterByLoactionId } from "../../store/reducers/gallerySlice";
-
+import { memo, useState } from "react";
+import {
+  setFilterByAuthorIdParam,
+  setFilterByLoactionIdParam,
+  setFilterByYearParam,
+} from "../../store/reducers/gallerySlice";
+import defaultMinusIcon from "../../assets/svg/default_minus_icon.svg";
+import { IYears } from "../../models/IYears";
 const FilterOverlay = () => {
   const dispatch = useAppDispatch();
   const { data: authors } = filterServiceAPI.useFetchAuthorsQuery();
@@ -14,16 +19,27 @@ const FilterOverlay = () => {
   const filterOverlayData = useAppSelector(
     (state) => state.filterOverlayReducer
   );
+  const [filterByYearInput, setFilterByYearInput] = useState<IYears>({
+    greaterThen: filterOverlayData.filterByYears.greaterThen,
+    lessThen: filterOverlayData.filterByYears.lessThen,
+  });
 
   const hadnleToggleOverlay = () => {
     dispatch(setDisplayOverlay());
-    
   };
 
   const handleApplyFilter = () => {
-    dispatch(setFilterByAuthorId(filterOverlayData.filterByAuthorQuery))
-    dispatch(setFilterByLoactionId(filterOverlayData.filterByLocationQuery))
+    dispatch(setFilterByAuthorIdParam(filterOverlayData.filterByAuthorQuery));
+    dispatch(
+      setFilterByLoactionIdParam(filterOverlayData.filterByLocationQuery)
+    );
+    dispatch(setFilterByYearParam(filterOverlayData.filterByYearsQuery));
   };
+
+  const hadnleSetFilterByYearInput = (event: React.ChangeEvent<HTMLInputElement>, inputProperty: "greaterThen" | "lessThen") => {
+    setFilterByYearInput({...filterByYearInput, [inputProperty]:event.target.value})
+    console.log(filterByYearInput)
+  }
 
   const classHidden = !filterOverlayData.displayOverlay
     ? FilterOverlayScss.overlayHidden
@@ -53,7 +69,18 @@ const FilterOverlay = () => {
           />
         </div>
         <div className={FilterOverlayScss.dropDown}>
-          <FilterOption name={"YEARS"} filterInput={""} />
+          <div>
+            <input
+              value={filterByYearInput.greaterThen}
+              onChange={(e) => hadnleSetFilterByYearInput(e, "greaterThen")}
+              
+            ></input>
+            <img src={defaultMinusIcon}></img>
+            <input
+              value={filterByYearInput.lessThen}
+              onChange={(e) => hadnleSetFilterByYearInput(e, "lessThen")}
+            ></input>
+          </div>
         </div>
         <button onClick={handleApplyFilter}>APPLY FILTER</button>
       </div>
