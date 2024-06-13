@@ -50,7 +50,7 @@ const Galery = () => {
   return (
     <div id={GaleryScss.galleryWrapper}>
       <Header />
-      {<FilterOverlay />}
+      <FilterOverlay />
 
       <label id={GaleryScss.searchBar}>
         <img id={GaleryScss.searchIcon} src={searchIcon}></img>

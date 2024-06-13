@@ -59,14 +59,7 @@ const Pagination = ({ currentPage, paginationLinks, isFetching }: Props) => {
         </li>
       );
     }
-    return (
-      <li
-        className={GaleryScss.paginationButton}
-        onClick={() => handleChangePage(page)}
-      >
-        {page}
-      </li>
-    );
+    return addPage(page);
   }
 
   const handleChangePage = (page: number) => {
@@ -84,6 +77,26 @@ const Pagination = ({ currentPage, paginationLinks, isFetching }: Props) => {
       dispatch(setPage(currentPage + 1));
     }
   };
+
+  const addExcessPage = () => {
+    return (
+      <li className={`${GaleryScss.paginationButton} ${GaleryScss.excessPage}`}>
+        ...
+      </li>
+    );
+  };
+
+  const addPage = (page: number) => {
+    return (
+      <li
+        className={GaleryScss.paginationButton}
+        onClick={() => handleChangePage(page)}
+      >
+        {page}
+      </li>
+    );
+  };
+
   function managePagination(): void {
     let tmpPagination: JSX.Element[] = [];
     if (lastPage <= 5) {
@@ -95,89 +108,37 @@ const Pagination = ({ currentPage, paginationLinks, isFetching }: Props) => {
         for (let i = 1; i <= 4; i++) {
           tmpPagination.push(addPageToPagination(i));
         }
-        tmpPagination.push(
-          <li
-            className={`${GaleryScss.paginationButton} ${GaleryScss.excessPage}`}
-          >
-            ...
-          </li>
-        );
-        tmpPagination.push(
-          <li
-            className={GaleryScss.paginationButton}
-            onClick={() => handleChangePage(lastPage)}
-          >
-            {lastPage}
-          </li>
-        );
+        tmpPagination.push(addExcessPage());
+        tmpPagination.push(addPage(lastPage));
       } else if (currentPage >= lastPage - 2) {
-        tmpPagination.push(
-          <li
-            className={GaleryScss.paginationButton}
-            onClick={() => handleChangePage(1)}
-          >
-            1
-          </li>
-        );
+        tmpPagination.push(addPage(1));
 
-        tmpPagination.push(
-          <li
-            className={`${GaleryScss.paginationButton} ${GaleryScss.excessPage}`}
-          >
-            ...
-          </li>
-        );
+        tmpPagination.push(addExcessPage());
 
         for (let i = lastPage - 3; i <= lastPage; i++) {
           tmpPagination.push(addPageToPagination(i));
         }
       } else {
-        tmpPagination.push(
-          <li
-            className={GaleryScss.paginationButton}
-            onClick={() => handleChangePage(1)}
-          >
-            1
-          </li>
-        );
+        tmpPagination.push(addPage(1));
 
-        tmpPagination.push(
-          <li
-            className={`${GaleryScss.paginationButton} ${GaleryScss.excessPage}`}
-          >
-            ...
-          </li>
-        );
+        tmpPagination.push(addExcessPage());
 
         for (let i = currentPage - 1; i <= currentPage + 1; i++) {
           tmpPagination.push(addPageToPagination(i));
         }
-        tmpPagination.push(
-          <li
-            className={`${GaleryScss.paginationButton} ${GaleryScss.excessPage}`}
-          >
-            ...
-          </li>
-        );
+        tmpPagination.push(addExcessPage());
 
-        tmpPagination.push(
-          <li
-            className={GaleryScss.paginationButton}
-            onClick={() => handleChangePage(lastPage)}
-          >
-            {lastPage}
-          </li>
-        );
+        tmpPagination.push(addPage(lastPage));
       }
     }
     setPagination(tmpPagination);
   }
 
   useEffect(() => {
-    console.log("useState", count);
     setPagination([]);
     managePagination();
   }, [currentPage, paginationLinks, isFetching]);
+
   return (
     <div style={{ color: "white" }}>
       <ul id={GaleryScss.paginationList}>

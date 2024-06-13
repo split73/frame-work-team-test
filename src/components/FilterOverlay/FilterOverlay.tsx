@@ -3,7 +3,10 @@ import defaultCloseIcon from "../../assets/svg/default_close_icon.svg";
 import FilterOption from "./FilterOption/FilterOption";
 import { filterServiceAPI } from "../../services/FilterService";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { setDisplayOverlay, setFilterByYear } from "../../store/reducers/filterOverlaySlice";
+import {
+  setDisplayOverlay,
+  setFilterByYear,
+} from "../../store/reducers/filterOverlaySlice";
 import { memo, useState } from "react";
 import {
   setFilterByAuthorIdParam,
@@ -36,11 +39,45 @@ const FilterOverlay = () => {
     dispatch(setFilterByYearParam(filterOverlayData.filterByYearsQuery));
   };
 
-  const hadnleSetFilterByYearInput = (event: React.ChangeEvent<HTMLInputElement>, inputProperty: "greaterThen" | "lessThen") => {
-    setFilterByYearInput({...filterByYearInput, [inputProperty]:event.target.value})
-    dispatch(setFilterByYear({...filterByYearInput, [inputProperty]:event.target.value}))
-    console.log(filterByYearInput)
-  }
+  //filterBYear must be > 999
+  const hadnleSetFilterByYearInput = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    inputProperty: "greaterThen" | "lessThen"
+  ) => {
+    setFilterByYearInput({
+      ...filterByYearInput,
+      [inputProperty]: event.target.value,
+    });
+    dispatch(
+      setFilterByYear({
+        ...filterByYearInput,
+        [inputProperty]: event.target.value,
+      })
+    );
+    console.log(filterByYearInput);
+  };
+
+  const handleRedactInput = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    inputProperty: "greaterThen" | "lessThen"
+  ) => {
+    let tmpEventValue = event.target.value;
+    if (tmpEventValue.length < 4 && tmpEventValue.length !== 0) {
+      while (tmpEventValue.length < 4) {
+        tmpEventValue += "0";
+      }
+      setFilterByYearInput({
+        ...filterByYearInput,
+        [inputProperty]: tmpEventValue,
+      });
+      dispatch(
+        setFilterByYear({
+          ...filterByYearInput,
+          [inputProperty]: tmpEventValue,
+        })
+      );
+    }
+  };
 
   const classHidden = !filterOverlayData.displayOverlay
     ? FilterOverlayScss.overlayHidden
@@ -74,12 +111,13 @@ const FilterOverlay = () => {
             <input
               value={filterByYearInput.greaterThen}
               onChange={(e) => hadnleSetFilterByYearInput(e, "greaterThen")}
-              
+              onBlur={(e) => handleRedactInput(e, "greaterThen")}
             ></input>
             <img src={defaultMinusIcon}></img>
             <input
               value={filterByYearInput.lessThen}
               onChange={(e) => hadnleSetFilterByYearInput(e, "lessThen")}
+              onBlur={(e) => handleRedactInput(e, "lessThen")}
             ></input>
           </div>
         </div>

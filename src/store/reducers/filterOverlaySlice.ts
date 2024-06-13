@@ -32,22 +32,21 @@ export const filterOverlaySlice = createSlice({
     },
     setFilterByAuthor: (state, action: PayloadAction<IAuthor>) => {
       state.filterByAuthor = action.payload;
-      state.filterByAuthorQuery = `authorId=${action.payload.id}`;
-      console.log("Q", state.filterByAuthorQuery);
+      state.filterByAuthorQuery = `authorId=${action.payload.id}&`;
     },
     setFilterByLocation: (state, action: PayloadAction<ILocation>) => {
       state.filterByLocation = action.payload;
-      state.filterByLocationQuery = `locationId=${action.payload.id}`;
+      state.filterByLocationQuery = `locationId=${action.payload.id}&`;
     },
     setFilterByYear: (state, action: PayloadAction<IYears>) => {
       state.filterByYears = action.payload;
       state.filterByYearsQuery.greaterThen =
         action.payload.greaterThen.length > 0
-          ? `created_gte=${action.payload.greaterThen}`
+          ? `created_gte=${action.payload.greaterThen}&`
           : "";
       state.filterByYearsQuery.lessThen =
         action.payload.lessThen.length > 0
-          ? `created_lte=${action.payload.lessThen}`
+          ? `created_lte=${action.payload.lessThen}&`
           : "";
       console.log("Q", state.filterByYears);
     },
