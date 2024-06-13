@@ -3,7 +3,7 @@ import defaultCloseIcon from "../../assets/svg/default_close_icon.svg";
 import FilterOption from "./FilterOption/FilterOption";
 import { filterServiceAPI } from "../../services/FilterService";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { setDisplayOverlay } from "../../store/reducers/filterOverlaySlice";
+import { setDisplayOverlay, setFilterByYear } from "../../store/reducers/filterOverlaySlice";
 import { memo, useState } from "react";
 import {
   setFilterByAuthorIdParam,
@@ -38,6 +38,7 @@ const FilterOverlay = () => {
 
   const hadnleSetFilterByYearInput = (event: React.ChangeEvent<HTMLInputElement>, inputProperty: "greaterThen" | "lessThen") => {
     setFilterByYearInput({...filterByYearInput, [inputProperty]:event.target.value})
+    dispatch(setFilterByYear({...filterByYearInput, [inputProperty]:event.target.value}))
     console.log(filterByYearInput)
   }
 
