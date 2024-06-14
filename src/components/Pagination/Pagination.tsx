@@ -1,8 +1,9 @@
 import { memo, useEffect, useState } from "react";
 import paginationArrowIcon from "../../assets/svg/pagination_arrow_icon.svg";
-import GaleryScss from "../Galery/Galery.module.scss";
+import PaginationScss from "./Pagination.module.scss";
 import { useAppDispatch } from "../../hooks/redux";
 import { setPage } from "../../store/reducers/gallerySlice";
+import "../../assets/styles/_variables.scss";
 
 interface Props {
   currentPage: number;
@@ -51,9 +52,10 @@ const Pagination = ({ currentPage, paginationLinks, isFetching }: Props) => {
     if (page === currentPage) {
       return (
         <li
-          className={GaleryScss.paginationButton}
-          id={GaleryScss.activePaginationButton}
+          className={PaginationScss.paginationButton}
+          id={PaginationScss.activePaginationButton}
           onClick={() => handleChangePage(page)}
+          key={page}
         >
           {page}
         </li>
@@ -80,7 +82,10 @@ const Pagination = ({ currentPage, paginationLinks, isFetching }: Props) => {
 
   const addExcessPage = () => {
     return (
-      <li className={`${GaleryScss.paginationButton} ${GaleryScss.excessPage}`}>
+      <li
+        className={`${PaginationScss.paginationButton} ${PaginationScss.excessPage}`}
+        key={"..."}
+      >
         ...
       </li>
     );
@@ -89,7 +94,8 @@ const Pagination = ({ currentPage, paginationLinks, isFetching }: Props) => {
   const addPage = (page: number) => {
     return (
       <li
-        className={GaleryScss.paginationButton}
+        key={page}
+        className={PaginationScss.paginationButton}
         onClick={() => handleChangePage(page)}
       >
         {page}
@@ -97,7 +103,7 @@ const Pagination = ({ currentPage, paginationLinks, isFetching }: Props) => {
     );
   };
 
-  function managePagination(): void {
+  function managePagination(): JSX.Element[] {
     let tmpPagination: JSX.Element[] = [];
     if (lastPage <= 5) {
       for (let i = 1; i <= lastPage; i++) {
@@ -131,35 +137,35 @@ const Pagination = ({ currentPage, paginationLinks, isFetching }: Props) => {
         tmpPagination.push(addPage(lastPage));
       }
     }
-    setPagination(tmpPagination);
+    return tmpPagination;
   }
 
   useEffect(() => {
     setPagination([]);
-    managePagination();
+    setPagination(managePagination());
   }, [currentPage, paginationLinks, isFetching]);
 
   return (
-    <div style={{ color: "white" }}>
-      <ul id={GaleryScss.paginationList}>
-        <li
-          className={GaleryScss.paginationButton}
-          onClick={handleDeacreaseCurrentPage}
-        >
-          <img
-            id={GaleryScss.paginationLeftArrow}
-            src={paginationArrowIcon}
-          ></img>
-        </li>
-        {pagination && pagination}
-        <li
-          className={GaleryScss.paginationButton}
-          onClick={handleIncreaseCurrentPage}
-        >
-          <img src={paginationArrowIcon} />
-        </li>
-      </ul>
-    </div>
+    <ul id={PaginationScss.pagination}>
+      <li
+        key="leftArrow"
+        className={PaginationScss.paginationButton}
+        onClick={handleDeacreaseCurrentPage}
+      >
+        <img
+          id={PaginationScss.paginationLeftArrow}
+          src={paginationArrowIcon}
+        ></img>
+      </li>
+      {pagination && pagination}
+      <li
+        key="rightArrow"
+        className={PaginationScss.paginationButton}
+        onClick={handleIncreaseCurrentPage}
+      >
+        <img src={paginationArrowIcon} />
+      </li>
+    </ul>
   );
 };
 

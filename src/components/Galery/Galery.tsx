@@ -15,11 +15,7 @@ import {
 } from "../../store/reducers/gallerySlice";
 import { setDisplayOverlay } from "../../store/reducers/filterOverlaySlice";
 
-let count = 0;
-
 const Galery = () => {
-  count++;
-  console.log("RENDER", count);
   const fetchParams = useAppSelector((state) => state.galleryReducer);
   const dispatch = useAppDispatch();
   const [searchInput, setSearchInput] = useState("");
@@ -71,21 +67,21 @@ const Galery = () => {
         {error && <h1 style={{ color: "white" }}>error</h1>}
         {isFetching && <h1 style={{ color: "white" }}>loading</h1>}
         <ul id={GaleryScss.cardsWrapper}>
-          {cards &&
+          {(!isFetching && cards) &&
             cards.data.map((cardData) => (
               <Card key={cardData.id} cardData={cardData} />
             ))}
         </ul>
+        
       </main>
-      <div id={GaleryScss.paginationWrapper}>
-        {!isFetching && (
-          <Pagination
-            currentPage={fetchParams.page}
-            paginationLinks={cards?.paginationLastPageLink}
-            isFetching={isFetching}
-          />
-        )}
-      </div>
+
+      {!isFetching && (
+        <Pagination
+          currentPage={fetchParams.page}
+          paginationLinks={cards?.paginationLastPageLink}
+          isFetching={isFetching}
+        />
+      )}
     </div>
   );
 };

@@ -1,16 +1,15 @@
 body {
   margin: 0;
-  background-color: #121212;
 }
 
 #galleryWrapper {
-  margin-left: 20px;
-  margin-right: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   column-gap: 5px;
   max-width: 1440px;
-  background-color: #121212;
+  background-color: var(--primary-color);
   min-height: 100vh;
 }
 
@@ -25,7 +24,7 @@ main {
 
 #searchBar {
   grid-column: 1/6;
-  background-color: #1a1818;
+  background-color: var(--secondary-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,8 +34,8 @@ main {
 #searchBar > input {
   font-family: "Inter";
   border: none;
-  background-color: #1a1818;
-  color: #dedede;
+  background-color: var(--secondary-color);
+  color: var(--primary-gray);
   margin: auto 0px auto 0px;
   width: 100%;
 }
@@ -59,38 +58,9 @@ main {
   border-radius: 4px;
   border: none;
   grid-column: 6;
-  background-color: #1a1818;
+  background-color: var(--secondary-color);
   justify-self: right;
-}
-
-#paginationWrapper {
-  grid-column: 1/7;
-  display: inline-block;
-  text-align: center;
-}
-
-.paginationButton {
-  display: inline-block;
-  list-style-type: none;
-  color: #dedede;
-  margin: 2px;
-  width: 24px;
-  height: 24px;
-  text-align: center;
-}
-
-#paginationLeftArrow {
-  transform: rotate(180deg);
-}
-
-#activePaginationButton {
-  background-color: #1a1818;
-}
-
-#paginationList {
-  padding: 0;
-  display: flex;
-  justify-content: center;
+  cursor: pointer;
 }
 
 @media (min-width: 768px) {
@@ -114,10 +84,6 @@ main {
   #filterButton {
     grid-column: 8;
   }
-
-  #paginationWrapper {
-    grid-column: 3/7;
-  }
 }
 
 @media (min-width: 1280px) {
@@ -133,7 +99,7 @@ main {
   }
   #cardsWrapper {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     column-gap: 32px;
   }
 
@@ -143,16 +109,5 @@ main {
 
   #filterButton {
     grid-column: 12;
-  }
-
-  #paginationWrapper {
-    grid-column: 5/9;
-  }
-}
-
-@media (min-width: 1440px) {
-  #cardsWrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
   }
 }

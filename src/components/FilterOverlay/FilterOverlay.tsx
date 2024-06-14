@@ -108,6 +108,7 @@ const FilterOverlay = () => {
         </div>
         <div className={FilterOverlayScss.dropDown}>
           <div>
+            <p>YEARS</p>
             <input
               value={filterByYearInput.greaterThen}
               onChange={(e) => hadnleSetFilterByYearInput(e, "greaterThen")}

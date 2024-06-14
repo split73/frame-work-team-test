@@ -1,0 +1,38 @@
+.paginationButton {
+  display: inline-block;
+  list-style-type: none;
+  color: var(--primary-gray);
+  margin: 2px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+#paginationLeftArrow {
+  transform: rotate(180deg);
+}
+
+#activePaginationButton {
+  background-color: var(--secondary-color);
+}
+
+#pagination {
+  grid-column: 1/7;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  #pagination {
+    grid-column: 3/7;
+  }
+}
+
+@media (min-width: 1280px) {
+  #pagination {
+    grid-column: 5/9;
+  }
+}

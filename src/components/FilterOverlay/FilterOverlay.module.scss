@@ -1,11 +1,9 @@
-$primary-black: #121212;
-$primary-white: #ffffff;
 #overlayWrapper {
-  background-color: $primary-black;
+  background-color: var(--primary-color);
   color: #ffffff;
   z-index: 10;
   position: fixed;
-  width: calc(100% - 40px);
+  width: 280px;
   min-height: 100vh;
   height: 100%;
   // border: 1px solid white;
@@ -25,7 +23,19 @@ $primary-white: #ffffff;
 }
 
 .overlayHidden {
-  background-color: red;
   transform: translateX(100%);
   transition: transform 300ms ease-out;
 }
+
+@media (min-width: 768px) {
+  #overlayWrapper {
+    width: 372px;
+  }
+}
+
+@media (min-width: 1280px) {
+  #overlayWrapper {
+    width: 492px;
+  }
+}
+

@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ICard } from "../models/ICard";
 import { ICardData } from "../models/ICard";
-import { IYears } from "../models/IYears";
 export const galleryAPI = createApi({
   reducerPath: "galleryAPI",
   baseQuery: fetchBaseQuery({

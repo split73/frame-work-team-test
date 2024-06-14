@@ -1,5 +1,5 @@
 header {
-  background-color: #121212;
+  background-color: var(--primary-color);
   overflow: hidden;
   margin-top: 20px;
   grid-column: 1/7;
@@ -12,7 +12,7 @@ header {
 
 #lightIcon {
   float: right;
-  background-color: #1A1818;
+  background-color: var(--secondary-color);
   border: none;
   width: 40px;
   height: 40px;

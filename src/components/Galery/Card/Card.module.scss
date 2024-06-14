@@ -1,7 +1,3 @@
-@use "../../../assets/styles/variables";
-
-
-
 .productCard {
   position: relative;
   margin-top: 10px;
@@ -12,20 +8,26 @@
   position: absolute;
   bottom: 0;
   display: flex;
+  width: 92%;
+  height: 16%;
+  // max-width: 324px;
+  background-color: var(--primary-color);
+  justify-content: space-between;
 }
 
 .imageInfo {
   font-family: "Cormorant SC";
-  height: 45px;
-  width: 236px;
-  background-color: variables.$primary-black;
-  color: variables.$primary-light-gray;
+  width: 100%;
+
+  color: var(--primary-gray);
+  display: flex;
+  flex-direction: column;
+  margin: auto;
 }
 
 .arrowButton {
-  background-color: #ab8956;
+  background-color: var(--accent-gold);
   width: 24px;
-  height: 45px;
   padding: 0;
   border: 0;
 }
@@ -40,4 +42,8 @@
 
 .imageWrapper {
   aspect-ratio: 1;
+}
+
+.infoText {
+  // background-color: salmon;
 }
