@@ -1,6 +1,5 @@
 import FilterOptionScss from "./FilterOption.module.scss";
 import defaultPlusIcon from "../../../assets/svg/default_plus_icon.svg";
-import defaultMinusIcon from "../../../assets/svg/default_minus_icon.svg";
 import { IAuthor } from "../../../models/IAuthor";
 import { ILocation } from "../../../models/ILocation";
 import { FC, memo, useState } from "react";
@@ -124,14 +123,6 @@ const FilterOption: FC<FilterOptionProps> = (props) => {
             )}
           </div>
         )}
-
-      {props.name === "YEARS" && (
-        <div>
-          <input></input>
-          <img src={defaultMinusIcon}></img>
-          <input></input>
-        </div>
-      )}
     </div>
   );
 };
