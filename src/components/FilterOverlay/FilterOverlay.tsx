@@ -13,6 +13,7 @@ import {
 
 import { FilterByYears } from "./FIleterByYears.tsx/FilterByYears";
 const FilterOverlay = () => {
+  console.log("RENDER")
   const dispatch = useAppDispatch();
   const { data: authors } = filterServiceAPI.useFetchAuthorsQuery();
   const { data: locatoins } = filterServiceAPI.useFetchLocationsQuery();

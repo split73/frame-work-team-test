@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import galleryReducer from "./reducers/gallerySlice";
 import filterOverlayReducer from "./reducers/filterOverlaySlice";
+import appReducer from "./reducers/appSlice"
 import { galleryAPI } from "../services/GalleryService";
 import { filterServiceAPI } from "../services/FilterService";
 const rootReducer = combineReducers({
   galleryReducer,
   filterOverlayReducer,
+  appReducer,
   [galleryAPI.reducerPath]: galleryAPI.reducer,
   [filterServiceAPI.reducerPath]: filterServiceAPI.reducer,
 });

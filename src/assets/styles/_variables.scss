@@ -3,7 +3,7 @@
   --primary-white: #ffffff;
   --primary-dark-gray: #575757;
   --primary-light-gray: #dedede;
-  --secodary-black: #1a1818;
+  --secondary-black: #1a1818;
   --secondary-white: #fcfcfc;
   --secondary-gray: #9c9c9c;
   --accent-red: #9b4b4b;
@@ -11,7 +11,7 @@
 
   --primary-color: var(--primary-black);
   --primary-gray: var(--primary-light-gray);
-  --seondary-color: var(--secondary-black);
+  --secondary-color: var(--secondary-black);
 }
 
 [data-theme="light"] {
