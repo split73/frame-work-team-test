@@ -1,10 +1,13 @@
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { setFilterByYear } from "../../../store/reducers/filterOverlaySlice";
-import defaultMinusIcon from "../../../assets/svg/default_minus_icon.svg";
 import { useState } from "react";
 import { IYears } from "../../../models/IYears";
+import { DefaultMinusIcon } from "../../SvgIcons/DefaultMinusIcon";
 
 export const FilterByYears = () => {
+  const primaryGrayColor = useAppSelector(
+    (state) => state.appReducer.primaryGray
+  );
   const dispatch = useAppDispatch();
   const filterOverlayData = useAppSelector(
     (state) => state.filterOverlayReducer
@@ -62,7 +65,7 @@ export const FilterByYears = () => {
         onChange={(e) => hadnleSetFilterByYearInput(e, "greaterThen")}
         onBlur={(e) => handleRedactInput(e, "greaterThen")}
       ></input>
-      <img src={defaultMinusIcon}></img>
+      <DefaultMinusIcon fill={primaryGrayColor} />
       <input
         value={inputsFIlterByYears.lessThen}
         onChange={(e) => hadnleSetFilterByYearInput(e, "lessThen")}

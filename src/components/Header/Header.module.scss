@@ -1,17 +1,13 @@
 header {
   background-color: var(--primary-color);
-  overflow: hidden;
-  margin-top: 20px;
+  height: 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   grid-column: 1/7;
 }
 
-#logo {
-  float: left;
-  text-decoration: none;
-}
-
 #lightIcon {
-  float: right;
   background-color: var(--secondary-color);
   border: none;
   width: 40px;

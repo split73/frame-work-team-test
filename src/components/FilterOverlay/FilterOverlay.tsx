@@ -1,5 +1,4 @@
 import FilterOverlayScss from "./FilterOverlay.module.scss";
-import defaultCloseIcon from "../../assets/svg/default_close_icon.svg";
 import FilterOption from "./FilterOption/FilterOption";
 import { filterServiceAPI } from "../../services/FilterService";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
@@ -12,8 +11,12 @@ import {
 } from "../../store/reducers/gallerySlice";
 
 import { FilterByYears } from "./FIleterByYears.tsx/FilterByYears";
+import { DefaultCloseIcon } from "../SvgIcons/DefaultCloseIcon";
 const FilterOverlay = () => {
-  console.log("RENDER")
+  console.log("RENDER");
+  const primaryGrayColor = useAppSelector(
+    (state) => state.appReducer.primaryGray
+  );
   const dispatch = useAppDispatch();
   const { data: authors } = filterServiceAPI.useFetchAuthorsQuery();
   const { data: locatoins } = filterServiceAPI.useFetchLocationsQuery();
@@ -43,21 +46,24 @@ const FilterOverlay = () => {
         className={FilterOverlayScss.closeFiltersButton}
         onClick={hadnleToggleOverlay}
       >
-        <img src={defaultCloseIcon}></img>
+
+        <DefaultCloseIcon fill={primaryGrayColor} />
       </button>
       <div id={FilterOverlayScss.dropDownFIltersWrapper}>
         <div className={FilterOverlayScss.dropDown}>
           <FilterOption
-            name={"ARTIST"}
+            name="ARTIST"
             filterOptionAuthor={authors}
             filterInput={filterOverlayData.filterByAuthor.name}
+            primaryGrayColor={primaryGrayColor}
           />
         </div>
         <div className={FilterOverlayScss.dropDown}>
           <FilterOption
-            name={"LOCATION"}
+            name="LOCATION"
             filterOptionLocation={locatoins}
             filterInput={filterOverlayData.filterByLocation.location}
+            primaryGrayColor={primaryGrayColor}
           />
         </div>
         <div className={FilterOverlayScss.dropDown}>

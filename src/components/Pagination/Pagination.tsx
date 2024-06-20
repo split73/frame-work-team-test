@@ -1,10 +1,10 @@
 import { memo } from "react";
-import paginationArrowIcon from "../../assets/svg/pagination_arrow_icon.svg";
 import PaginationScss from "./Pagination.module.scss";
-import { useAppDispatch } from "../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { setPage } from "../../store/reducers/gallerySlice";
 import "../../assets/styles/_variables.scss";
 import { useSetPagination } from "../../hooks/useSetPagination";
+import { PaginationArrowIcon } from "../SvgIcons/PaginationArrowIcon";
 
 interface Props {
   currentPage: number;
@@ -17,6 +17,8 @@ let count = 0;
 const Pagination = ({ currentPage, paginationLinks }: Props) => {
   count++;
   console.log("PAGI", count);
+  let arrowColor = useAppSelector((state) => state.appReducer.primaryGray);
+  console.log(arrowColor)
   let indexLastPageSubstring = paginationLinks?.indexOf('rel="last"');
   const lastPage = parsePaginationLinks(
     paginationLinks,
@@ -70,22 +72,6 @@ const Pagination = ({ currentPage, paginationLinks }: Props) => {
     );
   }
 
-  const handleChangePage = (page: number) => {
-    dispatch(setPage(page));
-  };
-
-  const handleDeacreaseCurrentPage = () => {
-    if (currentPage > 1) {
-      dispatch(setPage(currentPage - 1));
-    }
-  };
-
-  const handleIncreaseCurrentPage = () => {
-    if (currentPage < lastPage) {
-      dispatch(setPage(currentPage + 1));
-    }
-  };
-
   function addLeftArrow(key: number): JSX.Element {
     return (
       <li
@@ -93,10 +79,10 @@ const Pagination = ({ currentPage, paginationLinks }: Props) => {
         className={`${PaginationScss.paginationButton} ${PaginationScss.arrowButton}`}
         onClick={handleDeacreaseCurrentPage}
       >
-        <img
+        <PaginationArrowIcon
           id={PaginationScss.paginationLeftArrow}
-          src={paginationArrowIcon}
-        ></img>
+          fill={arrowColor}
+        />
       </li>
     );
   }
@@ -108,7 +94,7 @@ const Pagination = ({ currentPage, paginationLinks }: Props) => {
         className={`${PaginationScss.paginationButton} ${PaginationScss.arrowButton}`}
         onClick={handleIncreaseCurrentPage}
       >
-        <img src={paginationArrowIcon} />
+        <PaginationArrowIcon fill={arrowColor} />
       </li>
     );
   }
@@ -135,6 +121,22 @@ const Pagination = ({ currentPage, paginationLinks }: Props) => {
       </li>
     );
   }
+
+  const handleChangePage = (page: number) => {
+    dispatch(setPage(page));
+  };
+
+  const handleDeacreaseCurrentPage = () => {
+    if (currentPage > 1) {
+      dispatch(setPage(currentPage - 1));
+    }
+  };
+
+  const handleIncreaseCurrentPage = () => {
+    if (currentPage < lastPage) {
+      dispatch(setPage(currentPage + 1));
+    }
+  };
 
   return <ul id={PaginationScss.pagination}>{pagination}</ul>;
 };

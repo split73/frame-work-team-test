@@ -1,5 +1,4 @@
 import FilterOptionScss from "./FilterOption.module.scss";
-import defaultPlusIcon from "../../../assets/svg/default_plus_icon.svg";
 import { IAuthor } from "../../../models/IAuthor";
 import { ILocation } from "../../../models/ILocation";
 import { FC, memo, useState } from "react";
@@ -9,12 +8,14 @@ import {
   setFilterByAuthor,
   setFilterByLocation,
 } from "../../../store/reducers/filterOverlaySlice";
+import { DefaultPlusIcon } from "../../SvgIcons/DefaultPlusIcon";
 
 interface FilterOptionProps {
   filterOptionAuthor?: IAuthor[] | undefined;
   filterOptionLocation?: ILocation[] | undefined;
   name: string;
   filterInput: string;
+  primaryGrayColor: string;
 }
 
 const FilterOption: FC<FilterOptionProps> = (props) => {
@@ -25,7 +26,7 @@ const FilterOption: FC<FilterOptionProps> = (props) => {
 
   const handleAddAuthorToFetchingFilter = (filetrParam: IAuthor) => {
     setInputValue(filetrParam.name);
-    dispatch(setFilterByAuthor(filetrParam));  
+    dispatch(setFilterByAuthor(filetrParam));
   };
 
   const handleAddLocationToFetchingFilter = (filetrParam: ILocation) => {
@@ -49,7 +50,7 @@ const FilterOption: FC<FilterOptionProps> = (props) => {
       >
         <p>{props.name}</p>
         <button className={FilterOptionScss.closeFiltersButton}>
-          <img src={defaultPlusIcon}></img>
+          <DefaultPlusIcon fill={props.primaryGrayColor} />
         </button>
       </div>
       {displayFilterInput &&

@@ -12,10 +12,12 @@
   --primary-color: var(--primary-black);
   --primary-gray: var(--primary-light-gray);
   --secondary-color: var(--secondary-black);
+  --accent-color: var(--accent-gold)
 }
 
 [data-theme="light"] {
   --primary-color: var(--primary-white);
   --primary-gray: var(--primary-dark-gray);
   --secondary-color: var(--secondary-white);
+  --accent-color: var(--accent-red)
 }
