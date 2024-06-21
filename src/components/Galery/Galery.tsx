@@ -14,10 +14,13 @@ import { setDisplayOverlay } from "../../store/reducers/filterOverlaySlice";
 import { FilterIcon } from "../SvgIcons/FilterIcon";
 import { SearchIcon } from "../SvgIcons/SearchIcon";
 import { SmallCloseIcon } from "../SvgIcons/SmallCloseIcon";
+import { filterServiceAPI } from "../../services/FilterService";
 
 const Galery = () => {
   const primaryGray = useAppSelector((state) => state.appReducer.primaryGray);
   const fetchParams = useAppSelector((state) => state.galleryReducer);
+  const { data: authors } = filterServiceAPI.useFetchAuthorsQuery();
+  const { data: locations } = filterServiceAPI.useFetchLocationsQuery();
   const dispatch = useAppDispatch();
   const [searchInput, setSearchInput] = useState("");
   const {
@@ -44,6 +47,21 @@ const Galery = () => {
     dispatch(setDisplayOverlay());
   };
 
+  const handleGetAuthorById = (id: number) => {
+    if (!authors) {
+      return "err";
+    }
+    return authors[authors.findIndex((obj) => obj.id === id)].name;
+  };
+
+  const handleGetLocationById = (id: number) => {
+    if (!locations) {
+      return "err";
+    }
+
+    return locations[locations.findIndex((obj) => obj.id === id)].location;
+  };
+
   return (
     <div id={GaleryScss.galleryWrapper}>
       <Header />
@@ -52,7 +70,7 @@ const Galery = () => {
       <label id={GaleryScss.searchBar}>
         <SearchIcon fill={primaryGray} id={GaleryScss.searchIcon} />
         <input
-          placeholder="Placeholder"
+          placeholder="Painting title"
           onChange={(e) => hadnleSearchInput(e)}
           value={searchInput}
         ></input>
@@ -71,7 +89,12 @@ const Galery = () => {
           {!isFetching &&
             cards &&
             cards.data.map((cardData) => (
-              <Card key={cardData.id} cardData={cardData} />
+              <Card
+                key={cardData.id}
+                cardData={cardData}
+                author={handleGetAuthorById(cardData.authorId)}
+                location={handleGetLocationById(cardData.locationId)}
+              />
             ))}
         </ul>
       </main>

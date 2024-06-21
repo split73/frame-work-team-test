@@ -10,7 +10,6 @@
   display: flex;
   width: 92%;
   height: 16%;
-  // max-width: 324px;
   background-color: var(--primary-color);
   justify-content: space-between;
 }
@@ -18,11 +17,21 @@
 .imageInfo {
   font-family: "Cormorant SC";
   width: 100%;
-
-  color: var(--primary-gray);
+  color: var(--text-color);
   display: flex;
   flex-direction: column;
   margin: auto;
+}
+
+.productCard:hover {
+  .imageInfo {
+    border-left: 2px solid var(--accent-color);
+  }
+}
+
+.infoText:nth-child(2) {
+  color: var(--accent-color);
+  font-family: "Inter";
 }
 
 .arrowButton {
@@ -42,8 +51,4 @@
 
 .imageWrapper {
   aspect-ratio: 1;
-}
-
-.infoText {
-  // background-color: salmon;
 }

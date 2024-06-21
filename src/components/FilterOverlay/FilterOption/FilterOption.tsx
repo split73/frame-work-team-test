@@ -3,7 +3,6 @@ import { IAuthor } from "../../../models/IAuthor";
 import { ILocation } from "../../../models/ILocation";
 import { FC, memo, useState } from "react";
 import { useAppDispatch } from "../../../hooks/redux";
-
 import {
   setFilterByAuthor,
   setFilterByLocation,
@@ -48,7 +47,7 @@ const FilterOption: FC<FilterOptionProps> = (props) => {
         className={FilterOptionScss.dropDown}
         onClick={handleToggleFilterInput}
       >
-        <p>{props.name}</p>
+        <p className={FilterOptionScss.filterName}>{props.name}</p>
         <button className={FilterOptionScss.closeFiltersButton}>
           <DefaultPlusIcon fill={props.primaryGrayColor} />
         </button>

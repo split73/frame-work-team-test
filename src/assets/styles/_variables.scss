@@ -12,12 +12,16 @@
   --primary-color: var(--primary-black);
   --primary-gray: var(--primary-light-gray);
   --secondary-color: var(--secondary-black);
-  --accent-color: var(--accent-gold)
+  --accent-color: var(--accent-gold);
+  --active-pagination-button: var(--secondary-black);
+  --text-color: var(--primary-white)
 }
 
 [data-theme="light"] {
   --primary-color: var(--primary-white);
   --primary-gray: var(--primary-dark-gray);
   --secondary-color: var(--secondary-white);
-  --accent-color: var(--accent-red)
+  --accent-color: var(--accent-red);
+  --active-pagination-button: var(--primary-light-gray);
+  --text-color: var(--primary-black)
 }

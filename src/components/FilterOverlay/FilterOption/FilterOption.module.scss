@@ -1,8 +1,3 @@
-$primary-black: #121212;
-$primary-white: #ffffff;
-$primary-light-gray: #dedede;
-$primary-dark-gray: #575757;
-$secodary-black: #1a1818;
 .dropDown {
   display: flex;
   justify-content: space-between;
@@ -18,18 +13,23 @@ $secodary-black: #1a1818;
   border: none;
 }
 
+.filterName {
+  color: var(--text-color);
+}
+
 .optionSelector {
-  background-color: $secodary-black;
-  color: white;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
   width: 100%;
   height: 36px;
 }
 
 .optionSelector::placeholder {
-  color: $primary-dark-gray;
+  color: var(--primary-gray);
 }
 
 .dropDownOptions {
+  color: var(--primary-gray);
   list-style-type: none;
   padding: 0;
   max-height: 180px;
@@ -37,7 +37,7 @@ $secodary-black: #1a1818;
 }
 
 .dropDownOption {
-  background-color: $secodary-black;
+  background-color: var(--secondary-color);
   width: 100%;
   height: 36px;
   justify-content: center;

@@ -1,5 +1,8 @@
 .paginationButton {
-  display: inline-block;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   list-style-type: none;
   color: var(--primary-gray);
   margin: 2px;
@@ -19,7 +22,7 @@
 }
 
 #activePaginationButton {
-  background-color: var(--secondary-color);
+  background-color: var(--active-pagination-button);
   pointer-events: none;
 }
 
@@ -35,7 +38,7 @@
 }
 
 .arrowButton:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--active-pagination-button);
   border: none;
 }
 
