@@ -1,12 +1,11 @@
 #overlayWrapper {
-  background-color: var(--primary-color);
+  background-color: var(--filter-overlay-color);
   color: #ffffff;
   z-index: 10;
   position: fixed;
   width: 280px;
   min-height: 100vh;
   height: 100%;
-  // border: 1px solid white;
   transition: transform 300ms ease-in;
   right: 0;
 }
@@ -15,6 +14,7 @@
   background: none;
   padding: 0;
   border: none;
+  cursor: pointer;
 }
 
 #dropDownFIltersWrapper {
@@ -25,6 +25,27 @@
 .overlayHidden {
   transform: translateX(100%);
   transition: transform 300ms ease-out;
+}
+
+#manageFiltersButtons {
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.manageFiltersButton {
+  color: var(--primary-gray);
+  background: none;
+  border: none;
+  border-bottom: 2px solid var(--primary-gray);
+  cursor: pointer;
+  padding: 0;
+  font-family: "Inter";
+}
+
+.clearFiltersButton {
+  color: var(--clear-button-color);
+  border-bottom: 2px solid var(--clear-button-color);
 }
 
 @media (min-width: 768px) {
@@ -38,4 +59,3 @@
     width: 492px;
   }
 }
-

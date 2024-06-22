@@ -3,16 +3,21 @@ import { setFilterByYear } from "../../../store/reducers/filterOverlaySlice";
 import { useState } from "react";
 import { IYears } from "../../../models/IYears";
 import { DefaultMinusIcon } from "../../SvgIcons/DefaultMinusIcon";
+import FilterByYearsScss from "./FilterByYears.module.scss";
+import TextInput from "../../ui/TextInput/TextInput";
+import { DropDown } from "../../ui/DropDown/DropDown";
+import { DefaultPlusIcon } from "../../SvgIcons/DefaultPlusIcon";
 
-export const FilterByYears = () => {
-  const primaryGrayColor = useAppSelector(
-    (state) => state.appReducer.primaryGray
-  );
+interface IFilterByYears {
+  primaryGrayColor: string;
+}
+
+export const FilterByYears = ({ primaryGrayColor }: IFilterByYears) => {
   const dispatch = useAppDispatch();
   const filterOverlayData = useAppSelector(
     (state) => state.filterOverlayReducer
   );
-
+  const [displayFilterInput, setDisplayFilterInput] = useState(false);
   const [inputsFIlterByYears, setInputsFIlterByYears] = useState<IYears>({
     greaterThen: filterOverlayData.filterByYears.greaterThen,
     lessThen: filterOverlayData.filterByYears.lessThen,
@@ -57,20 +62,48 @@ export const FilterByYears = () => {
       );
     }
   };
+
+  const handleToggleFilterInput = () => {
+    setDisplayFilterInput(!displayFilterInput);
+  };
   return (
     <div>
-      <p>YEARS</p>
-      <input
-        value={inputsFIlterByYears.greaterThen}
-        onChange={(e) => hadnleSetFilterByYearInput(e, "greaterThen")}
-        onBlur={(e) => handleRedactInput(e, "greaterThen")}
-      ></input>
-      <DefaultMinusIcon fill={primaryGrayColor} />
-      <input
-        value={inputsFIlterByYears.lessThen}
-        onChange={(e) => hadnleSetFilterByYearInput(e, "lessThen")}
-        onBlur={(e) => handleRedactInput(e, "lessThen")}
-      ></input>
+      <DropDown
+        name="YEARS"
+        iconComponent={
+          !displayFilterInput ? (
+            <DefaultPlusIcon fill={primaryGrayColor} />
+          ) : (
+            <DefaultMinusIcon fill={primaryGrayColor} />
+          )
+        }
+        onClick={handleToggleFilterInput}
+      />
+      {displayFilterInput && (
+        <div className={FilterByYearsScss.yearsInputs}>
+          <TextInput
+            value={inputsFIlterByYears.greaterThen}
+            onChange={(e) => hadnleSetFilterByYearInput(e, "greaterThen")}
+            onBlur={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleRedactInput(e, "greaterThen")
+            }
+            placeholder="From"
+            width="66px"
+            type="number"
+          />
+          <DefaultMinusIcon fill={primaryGrayColor} margin="8px" />
+          <TextInput
+            value={inputsFIlterByYears.lessThen}
+            onChange={(e) => hadnleSetFilterByYearInput(e, "lessThen")}
+            onBlur={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleRedactInput(e, "lessThen")
+            }
+            placeholder="To"
+            width="66px"
+            type="number"
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -14,7 +14,11 @@
   --secondary-color: var(--secondary-black);
   --accent-color: var(--accent-gold);
   --active-pagination-button: var(--secondary-black);
-  --text-color: var(--primary-white)
+  --text-color: var(--primary-white);
+  --filter-overlay-color: var(--primary-black);
+  --placeholder-color: var(--primary-dark-gray);
+  --clear-button-color: var(--primary-dark-gray);
+  --filter-scrollbar: var(--primary-light-gray);
 }
 
 [data-theme="light"] {
@@ -23,5 +27,9 @@
   --secondary-color: var(--secondary-white);
   --accent-color: var(--accent-red);
   --active-pagination-button: var(--primary-light-gray);
-  --text-color: var(--primary-black)
+  --text-color: var(--primary-black);
+  --filter-overlay-color: var(--secondary-white);
+  --placeholder-color: var(--primary-light-gray);
+  --clear-button-color: var(--secondary-gray);
+  --filter-scrollbar: var(--secondary-gray);
 }

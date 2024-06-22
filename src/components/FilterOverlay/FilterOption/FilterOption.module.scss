@@ -19,13 +19,28 @@
 
 .optionSelector {
   background-color: var(--secondary-color);
-  color: var(--primary-color);
+  color: var(--primary-gray);
   width: 100%;
   height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.optionSelector::placeholder {
+.optionSelector input {
+  background-color: var(--secondary-color);
   color: var(--primary-gray);
+  border: none;
+  height: 36px;
+  width: 100%;
+}
+
+.optionSelector input::placeholder {
+  color: var(--placeholder-color);
+}
+
+.expandIcon {
+  transform: rotate(180deg);
 }
 
 .dropDownOptions {
@@ -34,6 +49,22 @@
   padding: 0;
   max-height: 180px;
   overflow: auto;
+  cursor: pointer;
+}
+
+.dropDownOptions::-webkit-scrollbar {
+  width: 4px;
+}
+
+.dropDownOptions::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: var(--secondary-color);
+}
+
+.dropDownOptions::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--filter-scrollbar);
+  height: 100px;
 }
 
 .dropDownOption {
@@ -41,7 +72,6 @@
   width: 100%;
   height: 36px;
   justify-content: center;
-  // border: 1px solid white
 }
 
 .dropDownOption:hover {

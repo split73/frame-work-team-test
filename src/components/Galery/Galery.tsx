@@ -62,6 +62,11 @@ const Galery = () => {
     return locations[locations.findIndex((obj) => obj.id === id)].location;
   };
 
+  const handleClearInput = () => {
+    setSearchInput("");
+    dispatch(setFilterByNameParam(""));
+  };
+
   return (
     <div id={GaleryScss.galleryWrapper}>
       <Header />
@@ -75,7 +80,9 @@ const Galery = () => {
           value={searchInput}
         ></input>
         {searchInput && (
-          <SmallCloseIcon fill={primaryGray} id={GaleryScss.smallCloseIcon} />
+          <button id={GaleryScss.clearInput} onClick={handleClearInput}>
+            <SmallCloseIcon fill={primaryGray} id={GaleryScss.smallCloseIcon} />
+          </button>
         )}
       </label>
       <button id={GaleryScss.filterButton} onClick={handleToggleFilterOverlay}>

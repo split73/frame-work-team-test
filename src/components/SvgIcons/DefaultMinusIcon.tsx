@@ -1,4 +1,10 @@
-export const DefaultMinusIcon = ({ fill }: { fill: string }) => {
+export const DefaultMinusIcon = ({
+  fill,
+  margin,
+}: {
+  fill: string;
+  margin?: string;
+}) => {
   return (
     <svg
       width="20"
@@ -6,6 +12,7 @@ export const DefaultMinusIcon = ({ fill }: { fill: string }) => {
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      style={{ margin: margin }}
     >
       <path
         fill-rule="evenodd"

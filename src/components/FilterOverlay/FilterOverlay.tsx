@@ -36,6 +36,12 @@ const FilterOverlay = () => {
     dispatch(setFilterByYearParam(filterOverlayData.filterByYearsQuery));
   };
 
+  const handleClearFilter = () => {
+    dispatch(setFilterByAuthorIdParam(""));
+    dispatch(setFilterByLoactionIdParam(""));
+    dispatch(setFilterByYearParam({ greaterThen: "", lessThen: "" }));
+  };
+
   const classHidden = !filterOverlayData.displayOverlay
     ? FilterOverlayScss.overlayHidden
     : "";
@@ -46,7 +52,6 @@ const FilterOverlay = () => {
         className={FilterOverlayScss.closeFiltersButton}
         onClick={hadnleToggleOverlay}
       >
-
         <DefaultCloseIcon fill={primaryGrayColor} />
       </button>
       <div id={FilterOverlayScss.dropDownFIltersWrapper}>
@@ -67,9 +72,22 @@ const FilterOverlay = () => {
           />
         </div>
         <div className={FilterOverlayScss.dropDown}>
-          <FilterByYears />
+          <FilterByYears primaryGrayColor={primaryGrayColor} />
         </div>
-        <button onClick={handleApplyFilter}>APPLY FILTER</button>
+        <div id={FilterOverlayScss.manageFiltersButtons}>
+          <button
+            className={FilterOverlayScss.manageFiltersButton}
+            onClick={handleApplyFilter}
+          >
+            SHOW THE RESULTS
+          </button>
+          <button
+            className={`${FilterOverlayScss.manageFiltersButton} ${FilterOverlayScss.clearFiltersButton}`}
+            onClick={handleClearFilter}
+          >
+            CLEAR
+          </button>
+        </div>
       </div>
     </div>
   );

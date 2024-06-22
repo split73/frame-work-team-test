@@ -2,12 +2,16 @@ import FilterOptionScss from "./FilterOption.module.scss";
 import { IAuthor } from "../../../models/IAuthor";
 import { ILocation } from "../../../models/ILocation";
 import { FC, memo, useState } from "react";
-import { useAppDispatch } from "../../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import {
   setFilterByAuthor,
   setFilterByLocation,
 } from "../../../store/reducers/filterOverlaySlice";
 import { DefaultPlusIcon } from "../../SvgIcons/DefaultPlusIcon";
+import { ExpandIcon } from "../../SvgIcons/ExpandIcon";
+import TextInput from "../../ui/TextInput/TextInput";
+import { DropDown } from "../../ui/DropDown/DropDown";
+import { DefaultMinusIcon } from "../../SvgIcons/DefaultMinusIcon";
 
 interface FilterOptionProps {
   filterOptionAuthor?: IAuthor[] | undefined;
@@ -18,6 +22,9 @@ interface FilterOptionProps {
 }
 
 const FilterOption: FC<FilterOptionProps> = (props) => {
+  const expadnIconColor = useAppSelector(
+    (state) => state.appReducer.primaryGray
+  );
   const [displayDropdown, setDisplayDropdown] = useState(false);
   const dispatch = useAppDispatch();
   const [displayFilterInput, setDisplayFilterInput] = useState(false);
@@ -41,29 +48,41 @@ const FilterOption: FC<FilterOptionProps> = (props) => {
     setDisplayFilterInput(!displayFilterInput);
   };
 
+  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value.toLowerCase());
+  };
+
   return (
     <div>
-      <div
-        className={FilterOptionScss.dropDown}
+      <DropDown
+        name={props.name}
         onClick={handleToggleFilterInput}
-      >
-        <p className={FilterOptionScss.filterName}>{props.name}</p>
-        <button className={FilterOptionScss.closeFiltersButton}>
-          <DefaultPlusIcon fill={props.primaryGrayColor} />
-        </button>
-      </div>
+        iconComponent={
+          !displayFilterInput ? (
+            <DefaultPlusIcon fill={props.primaryGrayColor} />
+          ) : (
+            <DefaultMinusIcon fill={props.primaryGrayColor} />
+          )
+        }
+      />
       {displayFilterInput &&
         props.name === "ARTIST" &&
         props.filterOptionAuthor && (
           <div className={FilterOptionScss.selectOptionsWrapper}>
-            <input
-              value={inputValue}
-              className={FilterOptionScss.optionSelector}
-              onFocus={handleDisplayDropdown}
+            <TextInput
+              iconComponent={
+                <ExpandIcon
+                  fill={expadnIconColor}
+                  className={displayDropdown ? FilterOptionScss.expandIcon : ""}
+                />
+              }
               onBlur={handleDisplayDropdown}
-              placeholder="Select the artist"
-              onChange={(e) => setInputValue(e.target.value.toLowerCase())}
-            ></input>
+              onChange={(e) => handleInputValue(e)}
+              onFocus={handleDisplayDropdown}
+              placeholder="select the artist"
+              value={inputValue}
+            />
+
             {displayDropdown && (
               <ul className={FilterOptionScss.dropDownOptions}>
                 {props.filterOptionAuthor
@@ -92,14 +111,21 @@ const FilterOption: FC<FilterOptionProps> = (props) => {
         props.name === "LOCATION" &&
         props.filterOptionLocation && (
           <div className={FilterOptionScss.selectOptionsWrapper}>
-            <input
-              value={inputValue}
-              className={FilterOptionScss.optionSelector}
-              onFocus={handleDisplayDropdown}
+            <TextInput
+              iconComponent={
+                <ExpandIcon
+                  fill={expadnIconColor}
+                  className={displayDropdown ? FilterOptionScss.expandIcon : ""}
+                />
+              }
               onBlur={handleDisplayDropdown}
-              placeholder="Select the location"
-              onChange={(e) => setInputValue(e.target.value)}
-            ></input>
+              onChange={(e) => handleInputValue(e)}
+              onFocus={handleDisplayDropdown}
+              placeholder="select the location"
+              value={inputValue}
+
+            />
+
             {displayDropdown && (
               <ul className={FilterOptionScss.dropDownOptions}>
                 {props.filterOptionLocation

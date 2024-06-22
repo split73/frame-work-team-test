@@ -66,7 +66,7 @@ export function useSetPagination(
         tmpPagination.push(addPage(lastPage, lastPage));
       }
     }
-    if (lastPage !== currentPage) {
+    if (lastPage !== currentPage && lastPage !== 0) {
       tmpPagination.push(addRightArrow(lastPage + 2));
     }
     setPagination(tmpPagination);

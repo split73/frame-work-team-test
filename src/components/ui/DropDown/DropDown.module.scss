@@ -1,0 +1,17 @@
+.dropDown {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.filterName {
+  color: var(--text-color);
+  font-family: "Cormorant SC";
+}
+
+.closeFiltersButton {
+  background: none;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
