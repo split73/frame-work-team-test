@@ -91,6 +91,7 @@ const FilterOption: FC<FilterOptionProps> = (props) => {
                   )
                   .map((author) => (
                     <li
+                      key={author.name}
                       className={FilterOptionScss.dropDownOption}
                       onMouseDown={() =>
                         handleAddAuthorToFetchingFilter({
@@ -123,7 +124,6 @@ const FilterOption: FC<FilterOptionProps> = (props) => {
               onFocus={handleDisplayDropdown}
               placeholder="select the location"
               value={inputValue}
-
             />
 
             {displayDropdown && (
@@ -134,6 +134,7 @@ const FilterOption: FC<FilterOptionProps> = (props) => {
                   )
                   .map((location) => (
                     <li
+                      key={location.location}
                       className={FilterOptionScss.dropDownOption}
                       onMouseDown={() =>
                         handleAddLocationToFetchingFilter({

@@ -90,8 +90,8 @@ const Galery = () => {
       </button>
 
       <main>
-        {error && <h1 style={{ color: "white" }}>error</h1>}
-        {isFetching && <h1 style={{ color: "white" }}>loading</h1>}
+        {error && <h1 className={GaleryScss.errorMessage}>error</h1>}
+        {isFetching && <h1 className={GaleryScss.fetchingMessage}>loading</h1>}
         <ul id={GaleryScss.cardsWrapper}>
           {!isFetching &&
             cards &&

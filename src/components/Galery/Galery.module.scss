@@ -98,6 +98,14 @@ main {
   cursor: pointer;
 }
 
+.errorMessage {
+  color: var(--text-color)
+}
+
+.fetchingMessage {
+  color: var(--text-color);
+}
+
 @media (min-width: 768px) {
   main {
     grid-column: 1/9;

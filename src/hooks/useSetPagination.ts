@@ -11,10 +11,9 @@ export function useSetPagination(
 ) {
   const [pagination, setPagination] = useState<JSX.Element[]>([]);
 
-  let tmpPagination: JSX.Element[] = [];
-
   useEffect(() => {
     setPagination([]);
+    let tmpPagination: JSX.Element[] = [];
     if (currentPage > 1 && lastPage > 1) {
       tmpPagination.push(addLeftArrow(0));
     }

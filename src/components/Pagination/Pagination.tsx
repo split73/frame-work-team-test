@@ -61,7 +61,7 @@ const Pagination = ({ currentPage, paginationLinks }: Props) => {
         className={PaginationScss.paginationButton}
         id={PaginationScss.activePaginationButton}
         onClick={() => handleChangePage(page)}
-        key={key}
+        key={`${page}_${key}`}
       >
         {page}
       </li>
@@ -71,7 +71,7 @@ const Pagination = ({ currentPage, paginationLinks }: Props) => {
   function addLeftArrow(key: number): JSX.Element {
     return (
       <li
-        key={key}
+        key={`leftArrow_${key}`}
         className={`${PaginationScss.paginationButton} ${PaginationScss.arrowButton}`}
         onClick={handleDeacreaseCurrentPage}
       >
@@ -86,7 +86,7 @@ const Pagination = ({ currentPage, paginationLinks }: Props) => {
   function addRightArrow(key: number): JSX.Element {
     return (
       <li
-        key={key}
+        key={`rightArrow_${key}`}
         className={`${PaginationScss.paginationButton} ${PaginationScss.arrowButton}`}
         onClick={handleIncreaseCurrentPage}
       >
@@ -99,7 +99,7 @@ const Pagination = ({ currentPage, paginationLinks }: Props) => {
     return (
       <li
         className={`${PaginationScss.paginationButton} ${PaginationScss.excessPage}`}
-        key={key}
+        key={`exess_${key}`}
       >
         ...
       </li>
@@ -109,7 +109,7 @@ const Pagination = ({ currentPage, paginationLinks }: Props) => {
   function addPage(page: number, key: number) {
     return (
       <li
-        key={key}
+        key={`${page}_${key}`}
         className={PaginationScss.paginationButton}
         onClick={() => handleChangePage(page)}
       >

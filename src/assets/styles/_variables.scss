@@ -19,6 +19,7 @@
   --placeholder-color: var(--primary-dark-gray);
   --clear-button-color: var(--primary-dark-gray);
   --filter-scrollbar: var(--primary-light-gray);
+  --input-border: var(--secondary-black);
 }
 
 [data-theme="light"] {
@@ -32,4 +33,5 @@
   --placeholder-color: var(--secondary-gray);
   --clear-button-color: var(--secondary-gray);
   --filter-scrollbar: var(--secondary-gray);
+  --input-border: var(--primary-light-gray);
 }

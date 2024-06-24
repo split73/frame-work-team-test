@@ -13,9 +13,7 @@ import {
 import { FilterByYears } from "./FIleterByYears.tsx/FilterByYears";
 import { DefaultCloseIcon } from "../SvgIcons/DefaultCloseIcon";
 const FilterOverlay = () => {
-  const primaryGrayColor = useAppSelector(
-    (state) => state.appReducer.primaryGray
-  );
+  const appColors = useAppSelector((state) => state.appReducer);
   const dispatch = useAppDispatch();
   const { data: authors } = filterServiceAPI.useFetchAuthorsQuery();
   const { data: locatoins } = filterServiceAPI.useFetchLocationsQuery();
@@ -51,28 +49,25 @@ const FilterOverlay = () => {
         className={FilterOverlayScss.closeFiltersButton}
         onClick={hadnleToggleOverlay}
       >
-        <DefaultCloseIcon fill={primaryGrayColor} />
+        <DefaultCloseIcon fill={appColors.primaryGray} />
       </button>
       <div id={FilterOverlayScss.dropDownFIltersWrapper}>
-        <div className={FilterOverlayScss.dropDown}>
-          <FilterOption
-            name="ARTIST"
-            filterOptionAuthor={authors}
-            filterInput={filterOverlayData.filterByAuthor.name}
-            primaryGrayColor={primaryGrayColor}
-          />
-        </div>
-        <div className={FilterOverlayScss.dropDown}>
-          <FilterOption
-            name="LOCATION"
-            filterOptionLocation={locatoins}
-            filterInput={filterOverlayData.filterByLocation.location}
-            primaryGrayColor={primaryGrayColor}
-          />
-        </div>
-        <div className={FilterOverlayScss.dropDown}>
-          <FilterByYears primaryGrayColor={primaryGrayColor} />
-        </div>
+        <FilterOption
+          name="ARTIST"
+          filterOptionAuthor={authors}
+          filterInput={filterOverlayData.filterByAuthor.name}
+          primaryGrayColor={appColors.primaryGray}
+        />
+        <FilterOption
+          name="LOCATION"
+          filterOptionLocation={locatoins}
+          filterInput={filterOverlayData.filterByLocation.location}
+          primaryGrayColor={appColors.primaryGray}
+        />
+        <FilterByYears
+          primaryGrayColor={appColors.primaryGray}
+          minusIconColor={appColors.minusIconColor}
+        />
         <div id={FilterOverlayScss.manageFiltersButtons}>
           <button
             className={FilterOverlayScss.manageFiltersButton}

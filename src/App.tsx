@@ -5,14 +5,8 @@ import AppScss from "./App.module.scss";
 
 function App() {
   let currentTheme = useAppSelector((state) => state.appReducer);
-  console.log(currentTheme);
-
   return (
-    <div
-      id={AppScss.appWrapper}
-      data-theme={currentTheme.viewModeTheme}
-
-    >
+    <div id={AppScss.appWrapper} data-theme={currentTheme.viewModeTheme}>
       <Galery />
     </div>
   );

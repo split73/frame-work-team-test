@@ -10,9 +10,10 @@ import { DefaultPlusIcon } from "../../SvgIcons/DefaultPlusIcon";
 
 interface IFilterByYears {
   primaryGrayColor: string;
+  minusIconColor: string;
 }
 
-export const FilterByYears = ({ primaryGrayColor }: IFilterByYears) => {
+export const FilterByYears = ({ primaryGrayColor, minusIconColor }: IFilterByYears) => {
   const dispatch = useAppDispatch();
   const filterOverlayData = useAppSelector(
     (state) => state.filterOverlayReducer
@@ -89,14 +90,14 @@ export const FilterByYears = ({ primaryGrayColor }: IFilterByYears) => {
             width="66px"
             type="number"
           />
-          <DefaultMinusIcon fill={primaryGrayColor} margin="8px" />
+          <DefaultMinusIcon fill={minusIconColor} margin="8px" />
           <TextInput
             value={inputsFIlterByYears.lessThen}
             onChange={(e) => hadnleSetFilterByYearInput(e, "lessThen")}
             onBlur={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleRedactInput(e, "lessThen")
             }
-            placeholder="To"
+            placeholder="  To"
             width="66px"
             type="number"
           />

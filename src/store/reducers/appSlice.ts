@@ -11,6 +11,7 @@ interface AppState {
   primaryColor: string;
   primaryGray: string;
   secondaryColor: string;
+  minusIconColor: string;
 }
 
 const initialState: AppState = {
@@ -19,6 +20,7 @@ const initialState: AppState = {
   accentColor: "#9b4b4b",
   primaryGray: "#dedede",
   secondaryColor: "#1a1818",
+  minusIconColor: "#575757",
 };
 
 export const appSlice = createSlice({
@@ -32,12 +34,14 @@ export const appSlice = createSlice({
         state.primaryColor = "#ffffff";
         state.primaryGray = "#575757";
         state.secondaryColor = "#fcfcfc";
+        state.minusIconColor = "#9c9c9c";
       } else {
         state.viewModeTheme = viewModeThemeEnum.dark;
         state.accentColor = "#121212";
         state.primaryColor = "#9b4b4b";
         state.primaryGray = "#dedede";
         state.secondaryColor = "#1a1818";
+        state.minusIconColor = "#575757";
       }
     },
   },
