@@ -15,7 +15,7 @@ export function useSetPagination(
 
   useEffect(() => {
     setPagination([]);
-    if (currentPage > 1) {
+    if (currentPage > 1 && lastPage > 1) {
       tmpPagination.push(addLeftArrow(0));
     }
     if (lastPage <= 5) {
