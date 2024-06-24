@@ -104,6 +104,14 @@ const Galery = () => {
               />
             ))}
         </ul>
+        {!isFetching && !cards?.data.length && (
+          <div id={GaleryScss.noResultsMessage}>
+            <h1>
+              No matches for <span>{searchInput}</span>
+            </h1>
+            <p>Please try again with different spelling or keywords.</p>
+          </div>
+        )}
       </main>
 
       {!isFetching && (

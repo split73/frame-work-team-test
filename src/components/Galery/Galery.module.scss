@@ -31,6 +31,7 @@ main {
   align-items: center;
   border-radius: 4px;
   max-height: 36px;
+  border: 2px solid transparent;
 }
 
 #searchBar > input {
@@ -40,6 +41,27 @@ main {
   color: var(--primary-gray);
   margin: auto 0px auto 0px;
   width: 100%;
+}
+
+#searchBar > input:focus {
+  outline: none;
+}
+
+#searchBar:focus-within {
+  border: 2px solid var(--primary-gray);
+}
+
+#noResultsMessage {
+  text-align: center;
+  p {
+    color: var(--secondary-gray);
+  }
+  h1 {
+    color: var(--primary-gray);
+    span {
+      color: var(--text-color);
+    }
+  }
 }
 
 #searchIcon {

@@ -15,9 +15,13 @@
   padding: 0;
   border: none;
   cursor: pointer;
+  position: absolute;
+  right: 0px;
+  margin: 20px;
 }
 
 #dropDownFIltersWrapper {
+  margin-top: 124px;
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -30,7 +34,10 @@
 #manageFiltersButtons {
   display: flex;
   justify-content: space-between;
-  
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 89px;
+  width: 100%;
 }
 
 .manageFiltersButton {
@@ -46,6 +53,7 @@
 .clearFiltersButton {
   color: var(--clear-button-color);
   border-bottom: 2px solid var(--clear-button-color);
+  margin-right: 50px;
 }
 
 @media (min-width: 768px) {
