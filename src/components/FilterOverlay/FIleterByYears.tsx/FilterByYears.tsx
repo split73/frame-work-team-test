@@ -27,12 +27,10 @@ export const FilterByYears = ({ primaryGrayColor }: IFilterByYears) => {
     e: React.ChangeEvent<HTMLInputElement>,
     stateToChange: "greaterThen" | "lessThen"
   ) => {
-    console.log(inputsFIlterByYears);
     setInputsFIlterByYears({
       ...inputsFIlterByYears,
       [stateToChange]: e.target.value,
     });
-    console.log(e.target.value);
     dispatch(
       setFilterByYear({
         ...inputsFIlterByYears,

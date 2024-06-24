@@ -12,13 +12,10 @@ interface Props {
   isFetching: boolean;
 }
 
-let count = 0;
+
 
 const Pagination = ({ currentPage, paginationLinks }: Props) => {
-  count++;
-  console.log("PAGI", count);
   let arrowColor = useAppSelector((state) => state.appReducer.primaryGray);
-  console.log(arrowColor)
   let indexLastPageSubstring = paginationLinks?.indexOf('rel="last"');
   const lastPage = parsePaginationLinks(
     paginationLinks,
@@ -40,7 +37,6 @@ const Pagination = ({ currentPage, paginationLinks }: Props) => {
     linkString: string | null | undefined,
     characterIndex: number | undefined
   ): number {
-    console.log("FUNC", count, linkString, characterIndex);
     if (characterIndex === -1 || !linkString) {
       return 0;
     }

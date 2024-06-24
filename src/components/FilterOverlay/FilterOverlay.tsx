@@ -13,7 +13,6 @@ import {
 import { FilterByYears } from "./FIleterByYears.tsx/FilterByYears";
 import { DefaultCloseIcon } from "../SvgIcons/DefaultCloseIcon";
 const FilterOverlay = () => {
-  console.log("RENDER");
   const primaryGrayColor = useAppSelector(
     (state) => state.appReducer.primaryGray
   );

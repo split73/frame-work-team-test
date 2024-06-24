@@ -48,7 +48,6 @@ export const filterOverlaySlice = createSlice({
         action.payload.lessThen.length > 0
           ? `created_lte=${action.payload.lessThen}&`
           : "";
-      console.log("Q", state.filterByYears);
     },
   },
 });

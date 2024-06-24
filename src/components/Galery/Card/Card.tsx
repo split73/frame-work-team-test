@@ -8,11 +8,8 @@ interface CardProps {
   author: string;
   location: string;
 }
-let count = 0;
 
 const Card: FC<CardProps> = ({ cardData, author, location }) => {
-  count++;
-  console.log(count, cardData.name);
   const [showContent, setShownContent] = useState(true);
   return (
     <li
